@@ -4,30 +4,31 @@ export interface MutualFund {
   fundHouse: string;
   schemeName: string;
   schemeCode: string;
-  expectedReturnRate: number | string;
+  expectedReturnRate: number;
+  projectedMfValue?: number;
+  estimatedMfGain?: number;
 }
 
 export interface EMIPlan {
   id: string;
-  variantId: string;
-  mutualFundId: string;
   tenureMonths: number;
-  cashback: number | string | null;
-  interestRate: number | string;
-  monthlyAmount: number | string;
-  isActive: boolean;
+  interestRate: number;
+  monthlyAmount: number;
+  cashback: number;
+  totalEmiPaid: number;
+  totalInterestPaid: number;
+  netEffectiveCost: number;
   mutualFund: MutualFund;
 }
 
 export interface Variant {
   id: string;
-  productId: string;
   storage: string;
   color: string;
-  mrp: number | string;
-  price: number | string;
+  mrp: number;
+  price: number;
   imageUrl: string;
-  isActive: boolean;
+  discountPercentage?: number;
   emiPlans?: EMIPlan[];
 }
 
@@ -37,7 +38,12 @@ export interface Product {
   name: string;
   brand: string;
   description: string | null;
-  isActive: boolean;
+  minPrice?: number;
+  maxPrice?: number;
+  variantCount?: number;
+  availableStorage?: string[];
+  availableColors?: string[];
+  thumbnailUrl?: string;
   variants: Variant[];
 }
 
@@ -45,4 +51,16 @@ export interface ApiResponse<T> {
   success: boolean;
   data: T;
   message?: string;
+}
+
+export interface GrowthCalculationResult {
+  monthlyAmount: number;
+  tenureMonths: number;
+  totalInvested: number;
+  expectedReturnRate: number;
+  interestRate: number;
+  cashback: number;
+  projectedWealth: number;
+  estimatedReturns: number;
+  netEffectiveCost: number;
 }
