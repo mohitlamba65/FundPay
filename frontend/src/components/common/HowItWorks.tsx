@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Smartphone, CheckSquare, Layers, ShoppingBag, ShieldCheck, ArrowRight } from "lucide-react";
+import { Smartphone, CheckSquare, Layers, ShoppingBag, ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const STEPS = [
   {
     id: 1,
-    title: "1. Choose Gadget & Plan",
+    title: "1. Choose Device & Plan",
     tagline: "Pick your phone and customized EMI tenure",
     description:
       "Select your favorite flagship smartphone and explore tenures from 6 to 24 months with promotional cashbacks and 0% interest options.",
@@ -38,7 +38,7 @@ const STEPS = [
     title: "4. Doorstep Delivery",
     tagline: "Pay ₹0 today. Gadget dispatched immediately",
     description:
-      "Enjoy zero down payment. Your order is dispatched directly from authorized brand stores with manufacturer warranty and invoice.",
+      "Enjoy zero down payment. Your order is dispatched directly from authorized brand stores with official manufacturer warranty and invoice.",
     badge: "Step 4",
     icon: ShoppingBag,
     highlights: ["100% brand authentic", "Free insured express delivery", "Auto-debit monthly EMI"],
@@ -51,20 +51,25 @@ export function HowItWorks() {
   const IconComponent = current.icon;
 
   return (
-    <section id="how-it-works" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E7E5E4]">
-      <div className="text-center max-w-2xl mx-auto mb-16">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[#16A34A] bg-[#ECFDF3] px-3 py-1 rounded-full">
-          Simple 4-Step Journey
-        </span>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#171717] mt-3">
-          How Mutual-Fund Backed EMI Works
+    <section id="how-it-works" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E5E0EA]">
+      <div className="text-center max-w-3xl mx-auto mb-16">
+        {/* Outlined Pill Label */}
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F8F4FF] border border-[#DCC9F5] text-xs font-semibold uppercase tracking-wider text-[#6D28D9] mb-4 shadow-2xs">
+          <Sparkles className="h-3.5 w-3.5 text-[#7C20E8]" />
+          <span>Simple 4-Step Journey</span>
+        </div>
+
+        {/* Large Editorial Heading */}
+        <h2 className="text-[40px] sm:text-[56px] font-bold tracking-[-0.04em] text-[#050505] leading-[1.05]">
+          How you upgrade <span className="italic font-normal text-[#777777]">without selling</span>{" "}
+          <span className="text-[#6D28D9]">your portfolio</span>
         </h2>
-        <p className="text-sm text-[#6B6B6B] mt-3 leading-relaxed">
-          No credit card? No problem. Use your existing mutual fund portfolio as collateral without selling a single unit.
+        <p className="text-[17px] sm:text-[19px] text-[#444444] mt-4 leading-relaxed font-normal">
+          Traditional EMIs bleed interest. Use your pre-existing mutual funds as collateral to unlock 0% effective interest rates.
         </p>
       </div>
 
-      {/* Step Navigation Bar (Horizontal on desktop, vertical on mobile) */}
+      {/* Step Navigation Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
         {STEPS.map((step, idx) => {
           const StepIcon = step.icon;
@@ -74,21 +79,21 @@ export function HowItWorks() {
               key={step.id}
               type="button"
               onClick={() => setActiveStep(idx)}
-              className={`flex items-center gap-3 p-4 rounded-2xl border text-left transition-all ${
+              className={`flex items-center gap-3 p-4 rounded-[20px] border text-left transition-all ${
                 isActive
-                  ? "bg-[#111111] text-white border-[#111111] shadow-md scale-[1.02]"
-                  : "bg-white text-[#171717] border-[#E7E5E4] hover:bg-[#F5F5F4] hover:border-[#8A8A8A]"
+                  ? "bg-[#6D28D9] text-white border-[#6D28D9] shadow-md scale-[1.02]"
+                  : "bg-[#F8F4FF] text-[#050505] border-[#DCC9F5] hover:bg-[#EFDAFF]"
               }`}
             >
               <div
-                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors ${
-                  isActive ? "bg-white/15 text-[#16A34A]" : "bg-[#FAFAF8] text-[#171717]"
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] transition-colors ${
+                  isActive ? "bg-white/20 text-white" : "bg-white text-[#6D28D9] border border-[#DCC9F5]"
                 }`}
               >
                 <StepIcon className="h-5 w-5" />
               </div>
               <div className="overflow-hidden">
-                <span className={`text-[10px] uppercase tracking-wider font-semibold block ${isActive ? "text-white/60" : "text-[#8A8A8A]"}`}>
+                <span className={`text-[11px] uppercase tracking-wider font-bold block ${isActive ? "text-white/70" : "text-[#777777]"}`}>
                   {step.badge}
                 </span>
                 <span className="text-sm font-bold truncate block">
@@ -101,25 +106,25 @@ export function HowItWorks() {
       </div>
 
       {/* Interactive Detail Box */}
-      <div className="bg-white rounded-3xl border border-[#E7E5E4] p-8 sm:p-12 shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div className="bg-white rounded-[28px] border border-[#DCC9F5] p-8 sm:p-12 shadow-1fi-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div className="lg:col-span-7 space-y-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ECFDF3] text-[#16A34A] text-xs font-semibold">
-            <ShieldCheck className="h-4 w-4" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F8F4FF] text-[#6D28D9] text-xs font-semibold border border-[#DCC9F5]">
+            <ShieldCheck className="h-4 w-4 text-[#7C20E8]" />
             <span>{current.tagline}</span>
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-bold text-[#171717] tracking-tight">
+          <h3 className="text-3xl sm:text-4xl font-bold text-[#050505] tracking-tight">
             {current.title}
           </h3>
 
-          <p className="text-sm text-[#6B6B6B] leading-relaxed max-w-xl">
+          <p className="text-[16px] text-[#444444] leading-relaxed max-w-xl">
             {current.description}
           </p>
 
           <div className="pt-2 space-y-2.5">
             {current.highlights.map((h) => (
-              <div key={h} className="flex items-center gap-2 text-xs font-medium text-[#171717]">
-                <div className="h-1.5 w-1.5 rounded-full bg-[#16A34A]" />
+              <div key={h} className="flex items-center gap-2.5 text-sm font-medium text-[#050505]">
+                <div className="h-2 w-2 rounded-full bg-[#20D66B]" />
                 <span>{h}</span>
               </div>
             ))}
@@ -129,35 +134,35 @@ export function HowItWorks() {
             {activeStep < STEPS.length - 1 ? (
               <Button
                 onClick={() => setActiveStep(activeStep + 1)}
-                className="bg-[#111111] hover:bg-black text-white rounded-xl h-11 px-6 text-xs font-semibold"
+                className="bg-[#6D28D9] hover:bg-[#5420C9] text-white rounded-[18px] h-12 px-7 text-sm font-medium"
               >
-                Next Step <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+                Next Step <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             ) : (
               <a
                 href="#products"
-                className="inline-flex items-center gap-1.5 bg-[#16A34A] hover:bg-[#15803d] text-white rounded-xl h-11 px-6 text-xs font-semibold transition-colors"
+                className="inline-flex items-center gap-2 bg-[#6D28D9] hover:bg-[#5420C9] text-white rounded-[18px] h-12 px-7 text-sm font-semibold transition-colors shadow-sm"
               >
-                Start Shopping Now <ArrowRight className="h-3.5 w-3.5" />
+                Start Shopping Now <ArrowRight className="h-4 w-4" />
               </a>
             )}
           </div>
         </div>
 
         {/* Visual Graphic Representation */}
-        <div className="lg:col-span-5 flex items-center justify-center p-8 bg-[#FAFAF8] rounded-2xl border border-[#E7E5E4]">
+        <div className="lg:col-span-5 flex items-center justify-center p-8 bg-[#F8F4FF] rounded-[24px] border border-[#DCC9F5]">
           <div className="text-center space-y-4">
-            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-3xl bg-white shadow-sm border border-[#E7E5E4]">
-              <IconComponent className="h-12 w-12 text-[#16A34A]" />
+            <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-[24px] bg-white shadow-sm border border-[#DCC9F5]">
+              <IconComponent className="h-14 w-14 text-[#6D28D9]" />
             </div>
             <div className="space-y-1">
-              <span className="text-xs uppercase tracking-wider font-semibold text-[#8A8A8A]">
+              <span className="text-xs uppercase tracking-wider font-bold text-[#777777]">
                 FundPay Digital Guarantee
               </span>
-              <div className="text-lg font-bold text-[#171717]">
+              <div className="text-xl font-bold text-[#050505]">
                 Zero Prepayment Penalties
               </div>
-              <p className="text-xs text-[#6B6B6B] max-w-xs mx-auto">
+              <p className="text-xs text-[#444444] max-w-xs mx-auto leading-relaxed">
                 Pay off early anytime to immediately revoke mutual fund lien.
               </p>
             </div>

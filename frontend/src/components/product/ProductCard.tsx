@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import type { Product } from "@/types";
 import { formatINR } from "@/utils/cn";
-import { Badge } from "@/components/ui/badge";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  // Lowest price from variants
   const prices = product.variants?.map((v) => Number(v.price)) || [];
   const minPrice = product.minPrice || (prices.length > 0 ? Math.min(...prices) : 0);
   const mrpPrices = product.variants?.map((v) => Number(v.mrp)) || [];
@@ -21,52 +19,55 @@ export function ProductCard({ product }: ProductCardProps) {
   // Default display image
   const displayImage = product.variants?.[0]?.imageUrl || product.thumbnailUrl || "";
 
+  // Badge label mapping for editorial feel
+  let badgeLabel = "Best Seller";
+  if (product.brand.toLowerCase() === "apple") badgeLabel = "Featured Flagship";
+  else if (product.brand.toLowerCase() === "google") badgeLabel = "AI Flagship";
+
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl bg-white p-6 border border-[#E7E5E4] transition-all duration-300 hover:border-[#171717] hover:shadow-lg">
+    <Link
+      to={`/products/${product.slug}`}
+      className="group relative flex flex-col justify-between rounded-[28px] bg-[#F8F4FF] p-6 sm:p-7 border border-[#DCC9F5] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-1fi-hover hover:border-[#6D28D9] cursor-pointer"
+    >
       <div>
         {/* Badges Top Bar */}
         <div className="flex items-center justify-between gap-2 mb-4">
-          <Badge className="bg-[#ECFDF3] hover:bg-[#ECFDF3] text-[#16A34A] border-none text-[11px] font-semibold tracking-wide uppercase px-2.5 py-0.5 rounded-full">
-            <Sparkles className="h-3 w-3 mr-1" />
-            0% Interest Available
-          </Badge>
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#8A8A8A]">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#6D28D9] bg-white px-3 py-1 rounded-full border border-[#DCC9F5] shadow-2xs">
+            <Sparkles className="h-3 w-3 text-[#7C20E8]" />
+            {badgeLabel}
+          </span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#777777]">
             {product.brand}
           </span>
         </div>
 
-        {/* Product Image Stage */}
-        <Link
-          to={`/products/${product.slug}`}
-          className="relative flex h-60 w-full items-center justify-center overflow-hidden rounded-xl bg-[#FAFAF8] p-4 group-hover:bg-white transition-colors"
-        >
+        {/* Product Image Stage with clean white inset container */}
+        <div className="relative flex h-64 sm:h-72 w-full items-center justify-center overflow-hidden rounded-[22px] bg-white p-6 border border-[#E5E0EA] transition-colors group-hover:border-[#DCC9F5]">
           <img
             src={displayImage}
             alt={product.name}
-            className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
+            className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-106"
             loading="lazy"
           />
-        </Link>
+        </div>
 
         {/* Product Meta */}
-        <div className="mt-5 space-y-1.5">
-          <h3 className="text-lg font-bold tracking-tight text-[#171717] group-hover:text-black">
-            <Link to={`/products/${product.slug}`}>
-              {product.name}
-            </Link>
+        <div className="mt-6 space-y-2">
+          <h3 className="text-[26px] sm:text-[28px] font-bold tracking-tight text-[#050505] leading-tight group-hover:text-[#6D28D9] transition-colors">
+            {product.name}
           </h3>
-          <p className="text-xs text-[#6B6B6B] line-clamp-2 leading-relaxed">
+          <p className="text-[14px] text-[#444444] line-clamp-2 leading-relaxed font-normal">
             {product.description}
           </p>
         </div>
 
-        {/* Variant Previews */}
+        {/* Available Color Swatches / Tags */}
         {product.availableColors && product.availableColors.length > 0 && (
-          <div className="mt-3 flex items-center gap-1.5 flex-wrap">
+          <div className="mt-4 flex items-center gap-1.5 flex-wrap">
             {product.availableColors.map((color) => (
               <span
                 key={color}
-                className="text-[11px] font-medium text-[#6B6B6B] bg-[#F5F5F4] px-2 py-0.5 rounded-md"
+                className="text-[12px] font-medium text-[#444444] bg-white border border-[#E5E0EA] px-2.5 py-1 rounded-lg"
               >
                 {color}
               </span>
@@ -76,38 +77,35 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Pricing & CTA Section */}
-      <div className="mt-6 pt-4 border-t border-[#E7E5E4]">
+      <div className="mt-8 pt-5 border-t border-[#DCC9F5]">
         <div className="flex items-end justify-between mb-4">
           <div>
             <div className="flex items-baseline gap-2">
-              <span className="text-xl font-bold tracking-tight text-[#171717]">
+              <span className="text-2xl font-bold tracking-tight text-[#050505]">
                 {formatINR(minPrice)}
               </span>
               {minMrp > minPrice && (
-                <span className="text-xs text-[#8A8A8A] line-through">
+                <span className="text-xs text-[#A0A0A0] line-through">
                   {formatINR(minMrp)}
                 </span>
               )}
             </div>
-            <div className="text-xs font-semibold text-[#16A34A] flex items-center gap-1 mt-0.5">
-              <span>EMI from {formatINR(lowestEmi)}/mo</span>
+            <div className="text-xs font-semibold text-[#6D28D9] flex items-center gap-1 mt-0.5">
+              <span>From {formatINR(lowestEmi)}/mo with 0% interest</span>
             </div>
           </div>
 
           <div className="text-right">
-            <span className="text-[11px] text-[#8A8A8A] block">Mutual Fund Backed</span>
-            <span className="text-xs font-medium text-[#171717]">Zero Foreclosure</span>
+            <span className="text-[11px] text-[#777777] block font-medium">Lien Backed</span>
+            <span className="text-xs font-semibold text-[#050505]">Zero Selling</span>
           </div>
         </div>
 
-        <Link
-          to={`/products/${product.slug}`}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#111111] hover:bg-black text-white h-11 text-sm font-medium transition-all group-hover:shadow-sm"
-        >
-          <span>View EMI Plans</span>
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-        </Link>
+        <div className="flex w-full items-center justify-center gap-2 rounded-[18px] bg-[#6D28D9] group-hover:bg-[#5420C9] text-white h-12 text-[15px] font-semibold transition-all shadow-xs">
+          <span>Explore EMI Plans</span>
+          <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }

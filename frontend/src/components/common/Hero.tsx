@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, TrendingUp, CheckCircle } from "lucide-react";
+import { ArrowUpRight, Sparkles, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Product } from "@/types";
 import { formatINR } from "@/utils/cn";
@@ -22,140 +22,142 @@ export function Hero({ featuredProduct, loading = false }: HeroProps) {
   const productSlug = displayProduct?.slug || "iphone-17-pro";
 
   return (
-    <section className="relative overflow-hidden pt-12 pb-20 sm:pt-16 sm:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-        {/* Left Editorial Text Content */}
-        <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-          {/* Trust Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E7E5E4] text-xs font-semibold text-[#171717] shadow-2xs">
-            <span className="flex h-2 w-2 rounded-full bg-[#16A34A] animate-pulse" />
-            <span className="text-[#16A34A] font-bold">1Fi Inspired</span>
-            <span className="text-[#8A8A8A]">•</span>
-            <span>Mutual Fund Backed EMIs</span>
+    <section className="relative overflow-hidden bg-hero-gradient pt-8 sm:pt-14 pb-20 sm:pb-28">
+      {/* Background Ambient Glow */}
+      <div className="absolute inset-0 bg-hero-glow pointer-events-none -z-10" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Left Editorial Text Content */}
+          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+            {/* 1Fi Small White Hero Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E5E0EA] text-[13px] font-medium text-[#444444] shadow-1fi-nav">
+              <Sparkles className="h-4 w-4 text-[#7C20E8]" />
+              <span className="text-[#050505] font-semibold">1Fi Inspired</span>
+              <span className="text-[#A0A0A0]">•</span>
+              <span className="italic text-[#777777]">Shop using your investments</span>
+            </div>
+
+            {/* Signature 1Fi Large Editorial Headline */}
+            <h1 className="text-[52px] sm:text-[72px] lg:text-[84px] font-bold tracking-[-0.045em] leading-[0.98] text-[#050505]">
+              <span className="italic font-normal text-[#777777] block text-[42px] sm:text-[62px] lg:text-[72px] mb-1">
+                Pay later with zero interest.
+              </span>
+              <span className="block text-[#050505]">
+                Own your flagship.
+              </span>
+              <span className="text-[#7C20E8] block">
+                Keep compounding.
+              </span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-[17px] sm:text-[19px] text-[#444444] max-w-xl mx-auto lg:mx-0 leading-[1.55] font-normal">
+              Pledge your mutual fund portfolio as collateral to take home the newest flagship smartphones. Enjoy <strong>0% effective interest</strong>, zero down payment, and zero portfolio liquidation.
+            </p>
+
+            {/* CTA Group: Two Horizontally Aligned Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <a
+                href="#products"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-[18px] bg-[#6D28D9] hover:bg-[#5420C9] text-white h-14 px-8 text-[17px] font-semibold shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span>Shop Smartphones</span>
+                <ArrowUpRight className="h-5 w-5" />
+              </a>
+
+              <a
+                href="#calculator"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-[18px] border-2 border-[#6D28D9] text-[#6D28D9] bg-white/70 hover:bg-[#F8F4FF] h-14 px-8 text-[17px] font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span>Simulate Returns</span>
+                <TrendingUp className="h-5 w-5 text-[#6D28D9]" />
+              </a>
+            </div>
+
+            {/* Trust Copy directly beneath CTA */}
+            <p className="text-xs sm:text-[13px] text-[#777777] pt-1">
+              SEBI registered RTA lien integration • Zero foreclosure fee • Instant digital approval
+            </p>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-extrabold tracking-tight text-[#171717] leading-[1.08]">
-            Buy what you want.{" "}
-            <span className="text-[#16A34A] block sm:inline">
-              Keep your investments working.
-            </span>
-          </h1>
+          {/* Right Product Hero Stage with Lavender Rounded Container & Overhanging Product */}
+          <div className="lg:col-span-5 relative flex items-center justify-center">
+            {/* Ambient Background Gradient Glow */}
+            <div className="absolute -inset-6 rounded-[36px] bg-gradient-to-tr from-[#EFDAFF]/80 via-[#F8F4FF]/90 to-transparent blur-2xl -z-10" />
 
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg text-[#6B6B6B] max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-            Pledge your existing mutual funds as collateral to purchase the latest flagship smartphones. Enjoy <strong>0% effective interest</strong>, zero down payment, and zero portfolio liquidation.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-            <a
-              href="#products"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#111111] hover:bg-black text-[#FAFAF8] h-13 px-8 text-sm font-semibold shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Explore Flagships
-              <ArrowRight className="h-4 w-4" />
-            </a>
-
-            <a
-              href="#calculator"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white hover:bg-[#F5F5F4] text-[#171717] border border-[#E7E5E4] h-13 px-8 text-sm font-semibold transition-all shadow-2xs"
-            >
-              Simulate Returns
-              <TrendingUp className="h-4 w-4 text-[#16A34A]" />
-            </a>
-          </div>
-
-          {/* Trust Indicators */}
-          <div className="pt-6 border-t border-[#E7E5E4] flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-[#6B6B6B] font-medium">
-            <div className="flex items-center gap-1.5">
-              <CheckCircle className="h-4 w-4 text-[#16A34A]" />
-              <span>0% Effective Interest</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <CheckCircle className="h-4 w-4 text-[#16A34A]" />
-              <span>Zero Down Payment</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <CheckCircle className="h-4 w-4 text-[#16A34A]" />
-              <span>No Impact on CIBIL</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Product Hero Stage */}
-        <div className="lg:col-span-5 relative flex items-center justify-center">
-          {/* Subtle Glow backdrop */}
-          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-[#ECFDF3]/80 to-[#F5F5F4] blur-2xl -z-10 opacity-70" />
-
-          {/* Card Showcase */}
-          <div className="relative w-full max-w-md rounded-3xl bg-white p-6 border border-[#E7E5E4] shadow-lg">
-            {loading ? (
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <Skeleton className="h-4 w-24 rounded-full" />
-                  <Skeleton className="h-4 w-32 rounded-full" />
+            {/* Card Container */}
+            <div className="relative w-full max-w-md rounded-[28px] bg-[#F8F4FF] p-6 sm:p-7 border border-[#DCC9F5] shadow-1fi-card overflow-visible group">
+              {loading ? (
+                <div className="space-y-4">
+                  <Skeleton className="h-5 w-28 rounded-full bg-white" />
+                  <Skeleton className="h-64 sm:h-76 w-full rounded-[24px] bg-white" />
+                  <Skeleton className="h-8 w-3/4 bg-white" />
+                  <Skeleton className="h-14 w-full rounded-[18px] bg-white" />
                 </div>
-                <Skeleton className="h-64 sm:h-72 w-full rounded-2xl" />
-                <Skeleton className="h-6 w-3/4" />
-                <Skeleton className="h-12 w-full rounded-xl" />
-              </div>
-            ) : (
-              <>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs uppercase tracking-wider font-bold text-[#8A8A8A]">
-                    Featured Deal
-                  </span>
-                  <span className="text-xs font-semibold text-[#16A34A] bg-[#ECFDF3] px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                    <Sparkles className="h-3 w-3" /> 0% Down Payment
-                  </span>
-                </div>
-
-                {/* Featured Image */}
-                <div className="h-64 sm:h-72 w-full flex items-center justify-center bg-[#FAFAF8] rounded-2xl p-4 overflow-hidden">
-                  <img
-                    src={imageUrl}
-                    alt={productName}
-                    className="h-full w-full object-contain hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-
-                <div className="mt-5 space-y-1">
-                  <div className="flex justify-between items-baseline">
-                    <h3 className="text-lg font-bold text-[#171717]">{productName}</h3>
-                    <span className="text-lg font-extrabold text-[#171717]">{formatINR(price)}</span>
-                  </div>
-                  <p className="text-xs text-[#6B6B6B]">
-                    Backed by top-tier diversified large cap mutual funds
-                  </p>
-                </div>
-
-                {/* Floating Info Pill */}
-                <div className="mt-4 p-3 rounded-xl bg-[#FAFAF8] border border-[#E7E5E4] flex items-center justify-between text-xs">
-                  <div>
-                    <span className="text-[#8A8A8A] block text-[10px] uppercase font-semibold">
-                      12M Plan
+              ) : (
+                <>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs uppercase tracking-wider font-bold text-[#6D28D9]">
+                      Featured Deal
                     </span>
-                    <span className="text-[#171717] font-bold text-sm">
-                      {formatINR(monthlyEmi)}{" "}
-                      <span className="text-[11px] font-normal text-[#6B6B6B]">/mo</span>
+                    <span className="text-xs font-semibold text-[#6D28D9] bg-[#EFDAFF] px-3 py-1 rounded-full flex items-center gap-1.5 border border-[#DCC9F5]">
+                      <Sparkles className="h-3 w-3 text-[#7C20E8]" /> 0% Down Payment
                     </span>
                   </div>
-                  <div className="text-right">
-                    <span className="text-[#16A34A] block text-[10px] uppercase font-semibold">
-                      Cashback
-                    </span>
-                    <span className="text-[#16A34A] font-bold text-sm">+{formatINR(cashback)}</span>
+
+                  {/* Cutout Product Image with Partial Extrusion & Smooth Hover */}
+                  <div className="relative h-64 sm:h-76 w-full flex items-center justify-center bg-white rounded-[24px] p-6 border border-[#E5E0EA] overflow-hidden">
+                    <img
+                      src={imageUrl}
+                      alt={productName}
+                      className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-108"
+                    />
                   </div>
-                  <Link
-                    to={`/products/${productSlug}`}
-                    className="h-8 px-3.5 rounded-lg bg-[#111111] text-white text-xs font-semibold flex items-center gap-1 hover:bg-black transition-colors"
-                  >
-                    View
-                  </Link>
-                </div>
-              </>
-            )}
+
+                  {/* Product Title & Brand */}
+                  <div className="mt-5 space-y-1">
+                    <div className="flex justify-between items-baseline">
+                      <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#050505]">
+                        {productName}
+                      </h3>
+                      <span className="text-xl sm:text-2xl font-extrabold text-[#6D28D9]">
+                        {formatINR(price)}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#777777]">
+                      Pledge units in large-cap funds & pay {formatINR(monthlyEmi)}/mo
+                    </p>
+                  </div>
+
+                  {/* Floating Info Pill */}
+                  <div className="mt-4 p-3.5 rounded-[18px] bg-white border border-[#DCC9F5] flex items-center justify-between text-xs shadow-1fi-nav">
+                    <div>
+                      <span className="text-[#A0A0A0] block text-[10px] uppercase font-bold tracking-wider">
+                        12-Month Plan
+                      </span>
+                      <span className="text-[#050505] font-bold text-sm">
+                        {formatINR(monthlyEmi)}{" "}
+                        <span className="text-[11px] font-normal text-[#777777]">/mo</span>
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[#20D66B] block text-[10px] uppercase font-bold tracking-wider">
+                        Cashback
+                      </span>
+                      <span className="text-[#20D66B] font-bold text-sm">+{formatINR(cashback)}</span>
+                    </div>
+                    <Link
+                      to={`/products/${productSlug}`}
+                      className="h-9 px-4 rounded-[14px] bg-[#6D28D9] hover:bg-[#5420C9] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+                    >
+                      <span>View</span>
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

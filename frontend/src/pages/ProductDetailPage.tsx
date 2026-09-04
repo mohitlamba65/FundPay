@@ -6,6 +6,7 @@ import { ProductGallery } from "@/components/product/ProductGallery";
 import { VariantSelector } from "@/components/product/VariantSelector";
 import { EmiPlanCard } from "@/components/emi/EmiPlanCard";
 import { EmiBreakdownDialog } from "@/components/emi/EmiBreakdownDialog";
+import { FloatingChat } from "@/components/common/FloatingChat";
 import { formatINR } from "@/utils/cn";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
@@ -90,17 +91,17 @@ export function ProductDetailPage() {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <Skeleton className="h-6 w-48 mb-8" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <Skeleton className="h-6 w-48 mb-8 rounded-full bg-[#F8F4FF]" />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-6 space-y-4">
-            <Skeleton className="aspect-square w-full rounded-3xl" />
+            <Skeleton className="aspect-square w-full rounded-[28px] bg-[#F8F4FF]" />
           </div>
           <div className="lg:col-span-6 space-y-6">
-            <Skeleton className="h-8 w-3/4" />
-            <Skeleton className="h-10 w-1/3" />
-            <Skeleton className="h-24 w-full rounded-2xl" />
-            <Skeleton className="h-48 w-full rounded-2xl" />
+            <Skeleton className="h-10 w-3/4 bg-[#F8F4FF] rounded-2xl" />
+            <Skeleton className="h-12 w-1/3 bg-[#F8F4FF] rounded-2xl" />
+            <Skeleton className="h-24 w-full rounded-[24px] bg-[#F8F4FF]" />
+            <Skeleton className="h-48 w-full rounded-[24px] bg-[#F8F4FF]" />
           </div>
         </div>
       </div>
@@ -109,18 +110,18 @@ export function ProductDetailPage() {
 
   if (error || !product || !selectedVariant) {
     return (
-      <div className="max-w-md mx-auto px-4 py-24 text-center space-y-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-100 text-red-600 mx-auto">
-          <Info className="h-6 w-6" />
+      <div className="max-w-md mx-auto px-4 py-28 text-center space-y-4">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EFDAFF] text-[#6D28D9] mx-auto">
+          <Info className="h-7 w-7" />
         </div>
-        <h2 className="text-2xl font-bold text-[#171717]">Product Not Found</h2>
-        <p className="text-xs text-[#6B6B6B]">{error || "The requested smartphone is currently unavailable."}</p>
+        <h2 className="text-2xl font-bold text-[#050505]">Product Not Found</h2>
+        <p className="text-sm text-[#777777]">{error || "The requested smartphone is currently unavailable."}</p>
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#111111] text-white text-xs font-semibold hover:bg-black transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-[16px] bg-[#6D28D9] text-white text-sm font-semibold hover:bg-[#5420C9] transition-colors"
         >
           <ChevronLeft className="h-4 w-4" />
-          Back to Shop
+          Back to Catalog
         </Link>
       </div>
     );
@@ -129,18 +130,18 @@ export function ProductDetailPage() {
   const emiPlans = selectedVariant.emiPlans || [];
 
   return (
-    <div className="min-h-screen pb-32">
+    <div className="min-h-screen pb-32 bg-white">
       {/* Breadcrumb Navigation */}
-      <div className="border-b border-[#E7E5E4] bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-2 text-xs text-[#8A8A8A]">
-          <Link to="/" className="hover:text-[#171717] transition-colors flex items-center gap-1">
+      <div className="border-b border-[#E5E0EA] bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center gap-2 text-xs font-medium text-[#777777]">
+          <Link to="/" className="hover:text-[#6D28D9] transition-colors flex items-center gap-1">
             <ChevronLeft className="h-3.5 w-3.5" />
-            Shop
+            Catalog
           </Link>
           <span>/</span>
-          <span className="text-[#6B6B6B]">{product.brand}</span>
+          <span className="text-[#444444]">{product.brand}</span>
           <span>/</span>
-          <span className="text-[#171717] font-semibold truncate">{product.name}</span>
+          <span className="text-[#050505] font-bold truncate">{product.name}</span>
         </div>
       </div>
 
@@ -148,7 +149,7 @@ export function ProductDetailPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Product Gallery */}
-          <div className="lg:col-span-6 lg:sticky lg:top-24">
+          <div className="lg:col-span-6 lg:sticky lg:top-28">
             <ProductGallery
               imageUrl={selectedVariant.imageUrl}
               productName={product.name}
@@ -161,40 +162,40 @@ export function ProductDetailPage() {
             {/* Title & Brand */}
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#8A8A8A]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#6D28D9] bg-[#F8F4FF] border border-[#DCC9F5] px-3 py-1 rounded-full">
                   {product.brand}
                 </span>
-                <span className="text-xs text-[#E7E5E4]">•</span>
-                <Badge className="bg-[#ECFDF3] text-[#16A34A] border-none text-[11px] font-semibold">
-                  <Sparkles className="h-3 w-3 mr-1" />
+                <span className="text-xs text-[#E5E0EA]">•</span>
+                <Badge className="bg-[#EFDAFF] text-[#6D28D9] border border-[#DCC9F5] text-[11px] font-semibold rounded-full px-3 py-1">
+                  <Sparkles className="h-3 w-3 mr-1 text-[#7C20E8]" />
                   0% Effective Interest Available
                 </Badge>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#171717]">
+              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#050505] leading-tight">
                 {product.name}
               </h1>
 
-              <p className="text-sm text-[#6B6B6B] mt-3 leading-relaxed">
+              <p className="text-[15px] text-[#444444] mt-3 leading-relaxed">
                 {product.description}
               </p>
             </div>
 
             {/* Price Header */}
-            <div className="p-5 rounded-2xl bg-white border border-[#E7E5E4] flex items-center justify-between shadow-2xs">
+            <div className="p-6 rounded-[24px] bg-[#F8F4FF] border border-[#DCC9F5] flex items-center justify-between shadow-1fi-card">
               <div>
-                <span className="text-xs text-[#8A8A8A] block font-medium">Selling Price</span>
-                <div className="flex items-baseline gap-2.5 mt-0.5">
-                  <span className="text-3xl font-extrabold text-[#171717]">
+                <span className="text-xs text-[#777777] block font-semibold uppercase tracking-wider">Lien Purchase Price</span>
+                <div className="flex items-baseline gap-2.5 mt-1">
+                  <span className="text-3xl sm:text-4xl font-extrabold text-[#050505]">
                     {formatINR(selectedVariant.price)}
                   </span>
                   {selectedVariant.mrp > selectedVariant.price && (
-                    <span className="text-sm text-[#8A8A8A] line-through">
+                    <span className="text-sm text-[#A0A0A0] line-through">
                       {formatINR(selectedVariant.mrp)}
                     </span>
                   )}
                   {selectedVariant.discountPercentage && selectedVariant.discountPercentage > 0 && (
-                    <span className="text-xs font-bold text-[#16A34A] bg-[#ECFDF3] px-2 py-0.5 rounded-md">
+                    <span className="text-xs font-bold text-[#6D28D9] bg-[#EFDAFF] border border-[#DCC9F5] px-2 py-0.5 rounded-md">
                       {selectedVariant.discountPercentage}% OFF
                     </span>
                   )}
@@ -202,10 +203,10 @@ export function ProductDetailPage() {
               </div>
 
               <div className="text-right">
-                <span className="text-[11px] uppercase tracking-wider font-semibold text-[#16A34A] block">
+                <span className="text-[11px] uppercase tracking-wider font-bold text-[#20D66B] block">
                   Down Payment
                 </span>
-                <span className="text-xl font-bold text-[#171717]">₹0</span>
+                <span className="text-2xl font-extrabold text-[#050505]">₹0</span>
               </div>
             </div>
 
@@ -217,14 +218,14 @@ export function ProductDetailPage() {
             />
 
             {/* EMI Plans Section */}
-            <div className="space-y-4 pt-4 border-t border-[#E7E5E4]">
+            <div className="space-y-4 pt-6 border-t border-[#E5E0EA]">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-base font-bold text-[#171717] tracking-tight">
+                  <h2 className="text-lg font-bold text-[#050505] tracking-tight">
                     Select Mutual Fund EMI Plan
                   </h2>
-                  <p className="text-xs text-[#6B6B6B]">
-                    Each plan is backed by an active mutual fund scheme that continues earning returns.
+                  <p className="text-xs text-[#777777] mt-0.5">
+                    Backed by active equity/debt funds that continue compounding in your portfolio.
                   </p>
                 </div>
 
@@ -232,10 +233,10 @@ export function ProductDetailPage() {
                   <button
                     type="button"
                     onClick={() => setBreakdownOpen(true)}
-                    className="text-xs font-semibold text-[#16A34A] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-[#6D28D9] hover:underline flex items-center gap-1 bg-[#F8F4FF] border border-[#DCC9F5] px-3 py-1.5 rounded-full"
                   >
                     <Info className="h-3.5 w-3.5" />
-                    Full Breakdown
+                    View Math
                   </button>
                 )}
               </div>
@@ -255,22 +256,22 @@ export function ProductDetailPage() {
 
             {/* Selected Plan Summary Banner */}
             {selectedPlan && (
-              <div className="rounded-2xl p-5 bg-[#FAFAF8] border border-[#E7E5E4] space-y-3">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-[#6B6B6B]">Collateral Scheme:</span>
-                  <strong className="text-[#171717] font-semibold">{selectedPlan.mutualFund.name}</strong>
+              <div className="rounded-[22px] p-5 bg-[#F8F4FF] border border-[#DCC9F5] space-y-3">
+                <div className="flex items-center justify-between text-xs sm:text-sm">
+                  <span className="text-[#444444]">Collateral Scheme:</span>
+                  <strong className="text-[#050505] font-semibold">{selectedPlan.mutualFund.name}</strong>
                 </div>
 
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-[#6B6B6B]">Expected Portfolio Return:</span>
-                  <span className="text-[#16A34A] font-semibold">
-                    ~{selectedPlan.mutualFund.expectedReturnRate}% CAGR
+                <div className="flex items-center justify-between text-xs sm:text-sm">
+                  <span className="text-[#444444]">Expected Portfolio CAGR:</span>
+                  <span className="text-[#20D66B] font-bold">
+                    ~{selectedPlan.mutualFund.expectedReturnRate}% Compounding
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between text-xs pt-2 border-t border-[#E7E5E4]">
-                  <span className="text-[#6B6B6B]">Net Effective Cost:</span>
-                  <strong className="text-base font-bold text-[#171717]">
+                <div className="flex items-center justify-between text-xs sm:text-sm pt-3 border-t border-[#DCC9F5]">
+                  <span className="text-[#444444]">Net Effective Cost:</span>
+                  <strong className="text-lg font-extrabold text-[#6D28D9]">
                     {formatINR(selectedPlan.netEffectiveCost)}
                   </strong>
                 </div>
@@ -282,10 +283,10 @@ export function ProductDetailPage() {
 
       {/* Sticky Bottom Action Bar */}
       {selectedPlan && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#E7E5E4] bg-white/95 backdrop-blur-md py-4 px-4 sm:px-8 shadow-lg">
+        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#E5E0EA] bg-white/95 backdrop-blur-md py-4 px-4 sm:px-8 shadow-1fi-nav">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="hidden sm:block h-12 w-12 rounded-xl bg-[#FAFAF8] border border-[#E7E5E4] p-1 shrink-0 overflow-hidden">
+              <div className="hidden sm:block h-12 w-12 rounded-[14px] bg-[#F8F4FF] border border-[#DCC9F5] p-1 shrink-0 overflow-hidden">
                 <img
                   src={selectedVariant.imageUrl}
                   alt={product.name}
@@ -294,14 +295,14 @@ export function ProductDetailPage() {
               </div>
 
               <div>
-                <div className="text-xs text-[#8A8A8A] font-medium hidden sm:block">
+                <div className="text-xs text-[#777777] font-medium hidden sm:block">
                   {product.name} • {selectedVariant.storage} ({selectedVariant.color})
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-xl sm:text-2xl font-extrabold text-[#171717]">
+                  <span className="text-2xl font-extrabold text-[#050505]">
                     {formatINR(selectedPlan.monthlyAmount)}
                   </span>
-                  <span className="text-xs text-[#6B6B6B]">
+                  <span className="text-xs text-[#777777]">
                     / month for {selectedPlan.tenureMonths} mos
                   </span>
                 </div>
@@ -312,14 +313,14 @@ export function ProductDetailPage() {
               <Button
                 variant="outline"
                 onClick={() => setBreakdownOpen(true)}
-                className="hidden sm:flex rounded-xl border-[#E7E5E4] text-xs font-semibold h-12 px-5"
+                className="hidden sm:flex rounded-[16px] border-[#DCC9F5] text-xs font-semibold h-12 px-5 hover:bg-[#F8F4FF]"
               >
                 View Math
               </Button>
 
               <Button
                 onClick={handleProceedWithPlan}
-                className="bg-[#111111] hover:bg-black text-white rounded-xl h-12 px-8 text-sm font-semibold shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className="bg-[#6D28D9] hover:bg-[#5420C9] text-white rounded-[16px] h-12 px-8 text-sm font-semibold shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
                 Proceed with Selected Plan
                 <ArrowRight className="h-4 w-4 ml-2" />
@@ -340,51 +341,51 @@ export function ProductDetailPage() {
 
       {/* Checkout / Order Intent Modal */}
       <Dialog open={checkoutModalOpen} onOpenChange={setCheckoutModalOpen}>
-        <DialogContent className="sm:max-w-md rounded-3xl p-6 sm:p-8 bg-white border border-[#E7E5E4]">
+        <DialogContent className="sm:max-w-md rounded-[28px] p-6 sm:p-8 bg-white border border-[#DCC9F5] shadow-2xl">
           {checkoutStep === "confirm" ? (
             <div>
               <DialogHeader>
-                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ECFDF3] text-[#16A34A]">
-                  <ShieldCheck className="h-6 w-6" />
+                <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#F8F4FF] text-[#6D28D9] border border-[#DCC9F5]">
+                  <ShieldCheck className="h-7 w-7" />
                 </div>
-                <DialogTitle className="text-center text-xl font-bold tracking-tight text-[#171717]">
+                <DialogTitle className="text-center text-2xl font-bold tracking-tight text-[#050505]">
                   Confirm Plan & Begin Digital KYC
                 </DialogTitle>
-                <DialogDescription className="text-center text-xs text-[#6B6B6B]">
-                  Reserve this exclusive mutual-fund backed plan. No payment required today.
+                <DialogDescription className="text-center text-xs text-[#777777]">
+                  Reserve this exclusive mutual-fund backed plan. No upfront charge required today.
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="my-5 rounded-2xl bg-[#FAFAF8] border border-[#E7E5E4] p-4 space-y-2 text-xs">
+              <div className="my-5 rounded-[20px] bg-[#F8F4FF] border border-[#DCC9F5] p-4 space-y-2 text-xs sm:text-sm">
                 <div className="flex justify-between">
-                  <span className="text-[#6B6B6B]">Device:</span>
-                  <span className="font-semibold text-[#171717]">{product.name} ({selectedVariant.storage})</span>
+                  <span className="text-[#444444]">Device:</span>
+                  <span className="font-semibold text-[#050505]">{product.name} ({selectedVariant.storage})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#6B6B6B]">Selected Plan:</span>
-                  <span className="font-semibold text-[#171717]">{selectedPlan?.tenureMonths} Months @ {formatINR(selectedPlan?.monthlyAmount)}/mo</span>
+                  <span className="text-[#444444]">Selected Plan:</span>
+                  <span className="font-semibold text-[#050505]">{selectedPlan?.tenureMonths} Months @ {formatINR(selectedPlan?.monthlyAmount)}/mo</span>
                 </div>
-                <div className="flex justify-between text-[#16A34A]">
+                <div className="flex justify-between text-[#20D66B]">
                   <span className="font-medium">Promotional Cashback:</span>
                   <span className="font-bold">+{formatINR(selectedPlan?.cashback)}</span>
                 </div>
-                <div className="flex justify-between border-t border-[#E7E5E4] pt-2">
-                  <span className="text-[#6B6B6B]">Amount Due Today:</span>
-                  <span className="text-base font-bold text-[#16A34A]">₹0 (Zero Down Payment)</span>
+                <div className="flex justify-between border-t border-[#DCC9F5] pt-2">
+                  <span className="text-[#444444]">Amount Due Today:</span>
+                  <span className="text-base font-bold text-[#20D66B]">₹0 (Zero Down Payment)</span>
                 </div>
               </div>
 
               <div className="space-y-3">
                 <Button
                   onClick={handleConfirmOrder}
-                  className="w-full bg-[#111111] hover:bg-black text-white h-12 rounded-xl text-sm font-semibold transition-all"
+                  className="w-full bg-[#6D28D9] hover:bg-[#5420C9] text-white h-12 rounded-[16px] text-sm font-semibold transition-all"
                 >
                   Verify Mutual Funds via OTP
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => setCheckoutModalOpen(false)}
-                  className="w-full text-xs text-[#6B6B6B] h-10"
+                  className="w-full text-xs text-[#777777] h-10 hover:bg-[#F8F4FF]"
                 >
                   Modify Selection
                 </Button>
@@ -392,26 +393,26 @@ export function ProductDetailPage() {
             </div>
           ) : (
             <div className="text-center space-y-4 py-4">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-[#ECFDF3] text-[#16A34A]">
-                <CheckCircle2 className="h-8 w-8" />
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ECFDF3] text-[#20D66B]">
+                <CheckCircle2 className="h-9 w-9 stroke-[2.5]" />
               </div>
-              <DialogTitle className="text-2xl font-bold tracking-tight text-[#171717]">
+              <DialogTitle className="text-2xl font-bold tracking-tight text-[#050505]">
                 Application Approved! 🎉
               </DialogTitle>
-              <DialogDescription className="text-xs text-[#6B6B6B] max-w-xs mx-auto leading-relaxed">
+              <DialogDescription className="text-xs text-[#444444] max-w-xs mx-auto leading-relaxed">
                 Your mutual-fund backed plan for <strong>{product.name}</strong> has been secured at <strong>{formatINR(selectedPlan?.monthlyAmount)}/mo</strong>.
               </DialogDescription>
 
-              <div className="p-4 rounded-2xl bg-[#FAFAF8] border border-[#E7E5E4] text-xs text-left space-y-1.5 text-[#6B6B6B]">
+              <div className="p-4 rounded-[20px] bg-[#F8F4FF] border border-[#DCC9F5] text-xs text-left space-y-2 text-[#444444]">
                 <div className="flex justify-between">
                   <span>Application Reference:</span>
-                  <strong className="text-[#171717]">FP-{Math.floor(100000 + Math.random() * 900000)}</strong>
+                  <strong className="text-[#050505]">FP-{Math.floor(100000 + Math.random() * 900000)}</strong>
                 </div>
                 <div className="flex justify-between">
                   <span>Pledged Fund:</span>
-                  <strong className="text-[#171717]">{selectedPlan?.mutualFund.name}</strong>
+                  <strong className="text-[#050505]">{selectedPlan?.mutualFund.name}</strong>
                 </div>
-                <div className="flex justify-between text-[#16A34A]">
+                <div className="flex justify-between text-[#20D66B]">
                   <span>Cashback Credited:</span>
                   <strong className="font-bold">{formatINR(selectedPlan?.cashback)} on 1st EMI</strong>
                 </div>
@@ -422,7 +423,7 @@ export function ProductDetailPage() {
                   setCheckoutModalOpen(false);
                   navigate("/");
                 }}
-                className="w-full bg-[#111111] hover:bg-black text-white h-12 rounded-xl text-sm font-semibold"
+                className="w-full bg-[#6D28D9] hover:bg-[#5420C9] text-white h-12 rounded-[16px] text-sm font-semibold"
               >
                 Return to Shop
               </Button>
@@ -430,6 +431,9 @@ export function ProductDetailPage() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Floating Support Chat Button */}
+      <FloatingChat />
     </div>
   );
 }

@@ -55,10 +55,10 @@ export function VariantSelector({
       {/* Storage Options */}
       <div>
         <div className="flex justify-between items-center mb-2.5">
-          <label className="text-xs font-bold uppercase tracking-wider text-[#171717]">
+          <label className="text-xs font-bold uppercase tracking-wider text-[#050505]">
             Storage Option
           </label>
-          <span className="text-xs font-semibold text-[#16A34A]">
+          <span className="text-xs font-bold text-[#6D28D9]">
             Selected: {selectedVariant.storage}
           </span>
         </div>
@@ -71,10 +71,10 @@ export function VariantSelector({
                 key={st}
                 type="button"
                 onClick={() => handleStorageChange(st)}
-                className={`py-3 px-4 rounded-xl text-xs font-semibold border transition-all text-center ${
+                className={`py-3 px-4 rounded-[16px] text-xs font-semibold border transition-all text-center ${
                   isSelected
-                    ? "bg-[#111111] text-white border-[#111111] shadow-xs"
-                    : "bg-white text-[#171717] border-[#E7E5E4] hover:bg-[#F5F5F4] hover:border-[#8A8A8A]"
+                    ? "bg-[#6D28D9] text-white border-[#6D28D9] shadow-sm"
+                    : "bg-[#F8F4FF] text-[#050505] border-[#DCC9F5] hover:bg-[#EFDAFF]"
                 }`}
               >
                 {st}
@@ -87,15 +87,15 @@ export function VariantSelector({
       {/* Color Options */}
       <div>
         <div className="flex justify-between items-center mb-2.5">
-          <label className="text-xs font-bold uppercase tracking-wider text-[#171717]">
+          <label className="text-xs font-bold uppercase tracking-wider text-[#050505]">
             Finish / Color
           </label>
-          <span className="text-xs font-semibold text-[#6B6B6B]">
+          <span className="text-xs font-semibold text-[#6D28D9]">
             {selectedVariant.color}
           </span>
         </div>
 
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-2.5 flex-wrap">
           {colors.map((col) => {
             const isSelected = col === selectedVariant.color;
             const hex = getColorHex(col);
@@ -104,17 +104,17 @@ export function VariantSelector({
                 key={col}
                 type="button"
                 onClick={() => handleColorChange(col)}
-                className={`group flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-semibold transition-all ${
+                className={`group flex items-center gap-2.5 px-3.5 py-2.5 rounded-[16px] border text-xs font-semibold transition-all ${
                   isSelected
-                    ? "border-[#111111] bg-white ring-2 ring-[#111111] shadow-2xs"
-                    : "border-[#E7E5E4] bg-white hover:bg-[#F5F5F4]"
+                    ? "border-[#6D28D9] bg-white ring-2 ring-[#6D28D9] shadow-xs text-[#050505]"
+                    : "border-[#DCC9F5] bg-[#F8F4FF] hover:bg-[#EFDAFF] text-[#444444]"
                 }`}
               >
                 <span
                   className="h-4 w-4 rounded-full border border-black/10 shadow-inner"
                   style={{ backgroundColor: hex }}
                 />
-                <span className="text-[#171717]">{col}</span>
+                <span>{col}</span>
               </button>
             );
           })}

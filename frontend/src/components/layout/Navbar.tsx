@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { TrendingUp, Menu, X, ShieldCheck, ArrowRight } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { TrendingUp, Menu, X, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { healthApi, type HealthCheckResponse } from "@/api";
@@ -11,6 +11,7 @@ export function Navbar() {
   const [kycStep, setKycStep] = useState<"phone" | "pan" | "success">("phone");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [healthStatus, setHealthStatus] = useState<HealthCheckResponse | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     healthApi
@@ -26,9 +27,9 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "Products", href: "/#products" },
+    { label: "Phones", href: "/#products" },
     { label: "How It Works", href: "/#how-it-works" },
-    { label: "EMI Calculator", href: "/#calculator" },
+    { label: "Calculator", href: "/#calculator" },
     { label: "Benefits", href: "/#benefits" },
     { label: "FAQs", href: "/#faqs" },
   ];
@@ -52,204 +53,188 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-[#E7E5E4] bg-[#FAFAF8]/90 backdrop-blur-md transition-all">
-        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111111] text-white transition-transform group-hover:scale-105 shadow-xs">
-              <TrendingUp className="h-4.5 w-4.5 text-[#16A34A]" />
+      {/* 1Fi Floating Centered Navbar */}
+      <div className="sticky top-4 sm:top-6 z-50 w-full px-4 sm:px-6">
+        <header className="mx-auto w-full max-w-7xl h-[78px] sm:h-[86px] rounded-[22px] bg-white/92 backdrop-blur-md border border-[#E5E0EA] px-5 sm:px-8 flex items-center justify-between shadow-1fi-nav transition-all">
+          {/* Logo Mark */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-[16px] bg-[#6D28D9] text-white transition-transform group-hover:scale-105 shadow-sm">
+              <TrendingUp className="h-6 w-6 stroke-[2.4]" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold tracking-tight text-[#171717]">
-                Fund<span className="text-[#16A34A]">Pay</span>
+              <span className="text-xl sm:text-2xl font-bold tracking-tight text-[#050505] leading-none">
+                Fund<span className="text-[#6D28D9]">Pay</span>
               </span>
-              <span className="text-[10px] font-medium uppercase tracking-wider text-[#8A8A8A] -mt-1">
+              <span className="text-[11px] font-medium tracking-wide text-[#777777] mt-1 hidden sm:block">
                 Mutual Fund Backed EMIs
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-[#6B6B6B] hover:text-[#171717] transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+          {/* Desktop Navigation Links (Large gaps 32–42px, 18–20px font) */}
+          <nav className="hidden lg:flex items-center gap-8 xl:gap-10">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === "/" && location.hash === link.href.replace("/", "");
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className={`text-[17px] font-medium transition-colors hover:text-[#6D28D9] ${
+                    isActive ? "text-[#6D28D9] font-semibold" : "text-[#444444]"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
 
-          {/* Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            {/* Health / DB Status Badge */}
-            <div
-              className="flex items-center gap-1.5 text-xs text-[#6B6B6B] bg-white border border-[#E7E5E4] px-3 py-1.5 rounded-full shadow-2xs"
-              title={`Server: ${healthStatus?.status || "checking..."} | DB: ${healthStatus?.database || "checking..."}`}
-            >
-              <span
-                className={`flex h-2 w-2 rounded-full ${
-                  healthStatus?.database === "connected"
-                    ? "bg-[#16A34A] animate-pulse"
-                    : healthStatus?.database === "disconnected"
-                    ? "bg-[#DC2626]"
-                    : "bg-amber-400 animate-ping"
-                }`}
-              />
-              <span>
-                {healthStatus?.database === "connected"
-                  ? "DB Connected"
-                  : healthStatus?.database === "disconnected"
-                  ? "DB Offline"
-                  : "Checking API"}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-1.5 text-xs text-[#6B6B6B] bg-white border border-[#E7E5E4] px-3 py-1.5 rounded-full shadow-2xs">
-              <ShieldCheck className="h-3.5 w-3.5 text-[#16A34A]" />
-              <span>0% Interest</span>
-            </div>
+          {/* Right Action Group */}
+          <div className="hidden sm:flex items-center gap-4">
+            {/* Live DB Status Pill */}
+           
+            {/* Shop Now / Check Eligibility Primary Button */}
             <Button
               onClick={() => setEligibilityModalOpen(true)}
-              className="bg-[#111111] hover:bg-black text-[#FAFAF8] text-sm font-medium rounded-xl px-5 h-10 shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="bg-[#6D28D9] hover:bg-[#5420C9] text-white text-[16px] font-medium rounded-[18px] px-6 h-12 shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
             >
-              Check Eligibility
+              <span>Check Eligibility</span>
+              <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
 
-          {/* Mobile Menu Trigger */}
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-[#171717] hover:bg-[#F5F5F4] transition-colors"
-            aria-label="Toggle menu"
+            className="lg:hidden p-2.5 rounded-xl text-[#050505] hover:bg-[#F8F4FF] transition-colors"
+            aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
-        </div>
+        </header>
 
-        {/* Mobile Menu Dropdown */}
+        {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-b border-[#E7E5E4] bg-white px-4 pt-3 pb-6 space-y-3 shadow-md animate-in slide-in-from-top-2">
-            <div className="flex flex-col space-y-2.5">
+          <div className="lg:hidden mx-auto mt-2 w-full max-w-7xl rounded-[22px] bg-white border border-[#E5E0EA] p-6 shadow-1fi-nav animate-in slide-in-from-top-3">
+            <nav className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 text-sm font-medium text-[#171717] hover:bg-[#F5F5F4] rounded-lg transition-colors"
+                  className="text-lg font-medium text-[#444444] hover:text-[#6D28D9] py-1 transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
-            </div>
-            <div className="pt-2 border-t border-[#E7E5E4]">
-              <Button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setEligibilityModalOpen(true);
-                }}
-                className="w-full bg-[#111111] text-white rounded-xl h-11 text-sm font-medium shadow-xs"
-              >
-                Check Eligibility
-              </Button>
-            </div>
+              <div className="pt-4 border-t border-[#E5E0EA] flex flex-col gap-3">
+                <Button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setEligibilityModalOpen(true);
+                  }}
+                  className="w-full bg-[#6D28D9] hover:bg-[#5420C9] text-white rounded-[18px] h-12 text-base font-medium"
+                >
+                  Check Instant Eligibility
+                </Button>
+              </div>
+            </nav>
           </div>
         )}
-      </header>
+      </div>
 
-      {/* Quick Eligibility Modal */}
+      {/* Eligibility Modal */}
       <Dialog open={eligibilityModalOpen} onOpenChange={setEligibilityModalOpen}>
-        <DialogContent className="sm:max-w-md rounded-2xl p-6 bg-white border border-[#E7E5E4]">
-          <DialogHeader>
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ECFDF3] text-[#16A34A]">
-              <TrendingUp className="h-6 w-6" />
+        <DialogContent className="sm:max-w-md rounded-[28px] p-6 sm:p-8 bg-white border border-[#DCC9F5] shadow-2xl">
+          <DialogHeader className="text-left space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F8F4FF] text-[#6D28D9] text-xs font-semibold w-fit border border-[#DCC9F5]">
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Instant Portfolio Lien Check</span>
             </div>
-            <DialogTitle className="text-center text-xl font-bold tracking-tight text-[#171717]">
-              Check Mutual Fund EMI Limit
+            <DialogTitle className="text-2xl font-bold tracking-tight text-[#050505]">
+              {kycStep === "phone" && "Check Your Portfolio Limit"}
+              {kycStep === "pan" && "Enter Mutual Fund PAN"}
+              {kycStep === "success" && "Congratulations! Pre-Approved"}
             </DialogTitle>
-            <DialogDescription className="text-center text-xs text-[#6B6B6B]">
-              Instantly discover your credit limit backed by CAMS & KFintech mutual fund portfolios without impacting your CIBIL score.
+            <DialogDescription className="text-sm text-[#444444] leading-relaxed">
+              {kycStep === "phone" && "Verify your phone number registered with CAMS/KFintech mutual funds."}
+              {kycStep === "pan" && "We query your CAMS CAS safely to calculate your zero down payment credit limit."}
+              {kycStep === "success" && "You are eligible for up to ₹2,50,000 credit at 0% effective interest against your funds."}
             </DialogDescription>
           </DialogHeader>
 
           {kycStep === "phone" && (
-            <form onSubmit={handleKycSubmit} className="space-y-4 mt-2">
+            <form onSubmit={handleKycSubmit} className="space-y-4 mt-3">
               <div>
-                <label className="block text-xs font-semibold text-[#171717] mb-1.5">
-                  Mobile Number (Linked with Folios)
+                <label className="text-xs font-semibold uppercase tracking-wider text-[#777777] block mb-2">
+                  Mobile Number (Linked with MF)
                 </label>
-                <div className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-[#8A8A8A] font-medium">
+                <div className="flex gap-2">
+                  <span className="flex items-center justify-center px-3.5 rounded-[16px] bg-[#F8F4FF] border border-[#E5E0EA] text-sm font-semibold text-[#050505]">
                     +91
                   </span>
                   <input
                     type="tel"
                     required
-                    maxLength={10}
+                    pattern="[0-9]{10}"
                     placeholder="98765 43210"
                     value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ""))}
-                    className="w-full pl-12 pr-4 py-2.5 bg-[#FAFAF8] border border-[#E7E5E4] rounded-xl text-sm font-medium text-[#171717] focus:outline-none focus:border-[#111111] transition-colors"
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    className="flex-1 rounded-[16px] border border-[#E5E0EA] focus:border-[#6D28D9] focus:outline-none px-4 py-3 text-sm text-[#050505] placeholder:text-[#A0A0A0]"
                   />
                 </div>
               </div>
 
               <Button
                 type="submit"
-                disabled={phoneNumber.length < 10}
-                className="w-full bg-[#111111] hover:bg-black text-white h-11 rounded-xl text-sm font-medium transition-all"
+                className="w-full bg-[#6D28D9] hover:bg-[#5420C9] text-white rounded-[18px] h-12 text-sm font-medium"
               >
-                Continue <ArrowRight className="h-4 w-4 ml-1.5" />
+                Send Verification OTP
               </Button>
             </form>
           )}
 
           {kycStep === "pan" && (
-            <form onSubmit={handleKycSubmit} className="space-y-4 mt-2">
+            <form onSubmit={handleKycSubmit} className="space-y-4 mt-3">
               <div>
-                <label className="block text-xs font-semibold text-[#171717] mb-1.5">
-                  Permanent Account Number (PAN)
+                <label className="text-xs font-semibold uppercase tracking-wider text-[#777777] block mb-2">
+                  PAN Number
                 </label>
                 <input
                   type="text"
                   required
-                  maxLength={10}
                   placeholder="ABCDE1234F"
-                  className="w-full uppercase px-4 py-2.5 bg-[#FAFAF8] border border-[#E7E5E4] rounded-xl text-sm font-medium text-[#171717] focus:outline-none focus:border-[#111111] transition-colors"
+                  maxLength={10}
+                  className="w-full uppercase rounded-[16px] border border-[#E5E0EA] focus:border-[#6D28D9] focus:outline-none px-4 py-3 text-sm text-[#050505] placeholder:text-[#A0A0A0]"
                 />
-                <p className="text-[11px] text-[#8A8A8A] mt-1">
-                  Used solely to fetch verified mutual fund CAS data from SEBI-approved RTAs.
-                </p>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-[#111111] hover:bg-black text-white h-11 rounded-xl text-sm font-medium transition-all"
+                className="w-full bg-[#6D28D9] hover:bg-[#5420C9] text-white rounded-[18px] h-12 text-sm font-medium"
               >
-                Verify & Check Limit
+                Fetch Pre-Approved Limit
               </Button>
             </form>
           )}
 
           {kycStep === "success" && (
-            <div className="space-y-4 text-center py-2">
-              <div className="p-4 rounded-xl bg-[#ECFDF3] border border-[#16A34A]/20">
-                <span className="text-xs uppercase tracking-wider font-semibold text-[#16A34A]">
-                  Pre-Approved Limit
-                </span>
-                <div className="text-3xl font-bold text-[#171717] mt-1">₹2,50,000</div>
-                <p className="text-xs text-[#6B6B6B] mt-1">
-                  Eligible for 0% down payment on all flagship smartphones.
-                </p>
+            <div className="space-y-5 mt-3 text-center">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ECFDF3] text-[#20D66B]">
+                <CheckCircle2 className="h-8 w-8 stroke-[2.5]" />
+              </div>
+
+              <div className="p-4 rounded-[20px] bg-[#F8F4FF] border border-[#DCC9F5]">
+                <span className="text-xs text-[#777777] uppercase font-semibold block">Pre-Approved Limit</span>
+                <span className="text-3xl font-extrabold text-[#6D28D9] mt-1 block">₹2,50,000</span>
+                <span className="text-xs text-[#20D66B] font-semibold mt-1 inline-block">Zero Down Payment Required</span>
               </div>
 
               <Button
                 onClick={resetKyc}
-                className="w-full bg-[#111111] hover:bg-black text-white h-11 rounded-xl text-sm font-medium"
+                className="w-full bg-[#6D28D9] hover:bg-[#5420C9] text-white rounded-[18px] h-12 text-sm font-medium"
               >
-                Start Shopping
+                Browse Eligible Phones Now
               </Button>
             </div>
           )}

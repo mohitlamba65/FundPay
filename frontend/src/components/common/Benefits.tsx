@@ -5,6 +5,7 @@ import {
   TrendingUp,
   Zap,
   ShieldAlert,
+  Sparkles,
 } from "lucide-react";
 
 const BENEFITS = [
@@ -48,16 +49,18 @@ const BENEFITS = [
 
 export function Benefits() {
   return (
-    <section id="benefits" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E7E5E4]">
-      <div className="text-center max-w-2xl mx-auto mb-16">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[#16A34A] bg-[#ECFDF3] px-3 py-1 rounded-full">
-          Why FundPay
-        </span>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#171717] mt-3">
-          Smart EMI Meets Smart Wealth
+    <section id="benefits" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E5E0EA]">
+      <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F8F4FF] border border-[#DCC9F5] text-xs font-semibold uppercase tracking-wider text-[#6D28D9] mb-4 shadow-2xs">
+          <Sparkles className="h-3.5 w-3.5 text-[#7C20E8]" />
+          <span>Why FundPay</span>
+        </div>
+        <h2 className="text-[40px] sm:text-[56px] font-bold tracking-[-0.04em] text-[#050505] leading-[1.05]">
+          Smart EMI meets <span className="italic font-normal text-[#777777]">unbroken</span>{" "}
+          <span className="text-[#6D28D9]">compounding</span>
         </h2>
-        <p className="text-sm text-[#6B6B6B] mt-3 leading-relaxed">
-          Traditional consumer loans charge high hidden interest. We turn your existing portfolio into purchasing power without liquidation.
+        <p className="text-[17px] sm:text-[19px] text-[#444444] mt-4 leading-relaxed font-normal">
+          Traditional consumer loans charge high hidden interest. We turn your existing mutual fund portfolio into purchasing power without liquidation.
         </p>
       </div>
 
@@ -67,15 +70,15 @@ export function Benefits() {
           return (
             <div
               key={b.title}
-              className="group p-8 rounded-3xl bg-white border border-[#E7E5E4] hover:border-[#171717] hover:shadow-md transition-all duration-300"
+              className="group p-8 rounded-[26px] bg-[#F8F4FF] border border-[#DCC9F5] hover:border-[#6D28D9] hover:shadow-1fi-hover hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FAFAF8] text-[#171717] group-hover:bg-[#111111] group-hover:text-white transition-colors mb-5">
-                <Icon className="h-6 w-6 text-[#16A34A] group-hover:text-white transition-colors" />
+              <div className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-white border border-[#DCC9F5] text-[#6D28D9] group-hover:bg-[#6D28D9] group-hover:text-white transition-colors mb-6 shadow-xs">
+                <Icon className="h-7 w-7" />
               </div>
-              <h3 className="text-lg font-bold text-[#171717] tracking-tight mb-2">
+              <h3 className="text-[20px] font-bold text-[#050505] tracking-tight mb-2 group-hover:text-[#6D28D9] transition-colors">
                 {b.title}
               </h3>
-              <p className="text-xs text-[#6B6B6B] leading-relaxed">
+              <p className="text-[14px] text-[#444444] leading-relaxed">
                 {b.description}
               </p>
             </div>

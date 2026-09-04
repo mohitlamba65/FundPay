@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Sparkles } from "lucide-react";
 
 const FAQS = [
   {
@@ -38,30 +39,32 @@ const FAQS = [
 
 export function FaqSection() {
   return (
-    <section id="faqs" className="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-[#E7E5E4]">
+    <section id="faqs" className="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-[#E5E0EA]">
       <div className="text-center mb-16">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[#16A34A] bg-[#ECFDF3] px-3 py-1 rounded-full">
-          Frequently Asked Questions
-        </span>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#171717] mt-3">
-          Everything You Need to Know
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F8F4FF] border border-[#DCC9F5] text-xs font-semibold uppercase tracking-wider text-[#6D28D9] mb-4 shadow-2xs">
+          <Sparkles className="h-3.5 w-3.5 text-[#7C20E8]" />
+          <span>Frequently Asked Questions</span>
+        </div>
+        <h2 className="text-[38px] sm:text-[52px] font-bold tracking-[-0.04em] text-[#050505] leading-[1.05]">
+          Everything you <span className="italic font-normal text-[#777777]">need to know</span>{" "}
+          <span className="text-[#6D28D9]">about FundPay</span>
         </h2>
-        <p className="text-sm text-[#6B6B6B] mt-3">
-          Clear, transparent answers to help you buy smart without pausing your wealth.
+        <p className="text-[16px] sm:text-[18px] text-[#444444] mt-3 max-w-2xl mx-auto leading-relaxed">
+          Clear, transparent answers to help you buy smart without pausing your wealth journey.
         </p>
       </div>
 
-      <Accordion defaultValue={["item-0"]} className="w-full space-y-3">
+      <Accordion defaultValue={["item-0"]} className="w-full space-y-3.5">
         {FAQS.map((faq, index) => (
           <AccordionItem
             key={index}
             value={`item-${index}`}
-            className="rounded-2xl border border-[#E7E5E4] bg-white px-6 py-1 transition-all hover:border-[#8A8A8A]"
+            className="rounded-[20px] border border-[#DCC9F5] bg-[#F8F4FF] px-6 py-1.5 transition-all hover:border-[#6D28D9] shadow-xs"
           >
-            <AccordionTrigger className="text-left text-sm font-bold text-[#171717] hover:no-underline py-4">
+            <AccordionTrigger className="text-left text-[16px] sm:text-[17px] font-bold text-[#050505] hover:no-underline hover:text-[#6D28D9] py-4 transition-colors">
               {faq.q}
             </AccordionTrigger>
-            <AccordionContent className="text-xs sm:text-sm text-[#6B6B6B] leading-relaxed pb-4 pt-1">
+            <AccordionContent className="text-sm text-[#444444] leading-relaxed pb-4 pt-1">
               {faq.a}
             </AccordionContent>
           </AccordionItem>

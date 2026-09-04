@@ -2,38 +2,52 @@
 
 @layer base {
   :root {
-    --background: #FAFAF8;
-    --foreground: #171717;
+    --background: #FFFFFF;
+    --foreground: #050505;
 
     --card: #FFFFFF;
-    --card-foreground: #171717;
+    --card-foreground: #050505;
 
     --popover: #FFFFFF;
-    --popover-foreground: #171717;
+    --popover-foreground: #050505;
 
-    --primary: #111111;
-    --primary-foreground: #FAFAF8;
+    --primary: #6D28D9;
+    --primary-foreground: #FFFFFF;
 
-    --secondary: #F5F5F4;
-    --secondary-foreground: #171717;
+    --secondary: #F8F4FF;
+    --secondary-foreground: #6D28D9;
 
-    --muted: #F5F5F4;
-    --muted-foreground: #6B6B6B;
+    --muted: #F8F4FF;
+    --muted-foreground: #777777;
 
-    --accent: #F5F5F4;
-    --accent-foreground: #171717;
+    --accent: #7C20E8;
+    --accent-foreground: #FFFFFF;
+    --accent-dark: #5420C9;
 
-    --accent-green: #16A34A;
-    --accent-green-soft: #ECFDF3;
+    --surface-purple: #F8F4FF;
+    --card-purple: #EFDAFF;
+    --border-purple: #DCC9F5;
+    --card-border: #E5E0EA;
+
+    --text-primary: #050505;
+    --text-secondary: #444444;
+    --text-muted: #777777;
+    --text-light-muted: #A0A0A0;
+
+    --success: #20D66B;
+    --success-soft: #ECFDF3;
 
     --destructive: #DC2626;
     --destructive-foreground: #FFFFFF;
 
-    --border: #E7E5E4;
-    --input: #E7E5E4;
-    --ring: #111111;
+    --border: #E5E0EA;
+    --input: #E5E0EA;
+    --ring: #6D28D9;
 
-    --radius: 0.75rem;
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
   }
 }
 
@@ -47,37 +61,59 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
 
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: #6D28D9;
+  --color-primary-foreground: #FFFFFF;
 
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: #7C20E8;
+  --color-accent-dark: #5420C9;
+  --color-surface-purple: #F8F4FF;
+  --color-card-purple: #EFDAFF;
+  --color-border-purple: #DCC9F5;
 
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
+  --color-text-primary: #050505;
+  --color-text-secondary: #444444;
+  --color-text-muted: #777777;
+  --color-text-light-muted: #A0A0A0;
 
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-success: #20D66B;
+  --color-success-soft: #ECFDF3;
 
-  --color-accent-green: var(--accent-green);
-  --color-accent-green-soft: var(--accent-green-soft);
+  --color-border: #E5E0EA;
+  --color-input: #E5E0EA;
+  --color-ring: #6D28D9;
 
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #FFFFFF;
+  color: #050505;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: -0.011em;
+  letter-spacing: -0.02em;
+  overflow-x: hidden;
+}
+
+/* Custom 1Fi smooth lavender glow and diffuse nav shadow */
+.shadow-1fi-nav {
+  box-shadow: 0 10px 30px rgba(80, 40, 120, 0.08);
+}
+
+.shadow-1fi-card {
+  box-shadow: 0 4px 20px rgba(109, 40, 217, 0.04);
+}
+
+.shadow-1fi-hover {
+  box-shadow: 0 14px 34px rgba(109, 40, 217, 0.12);
+}
+
+.bg-hero-gradient {
+  background: linear-gradient(180deg, #F8F3FF 0%, #FCFAFF 60%, #FFFFFF 100%);
+}
+
+.bg-hero-glow {
+  background: radial-gradient(circle at 50% 30%, rgba(239, 218, 255, 0.6) 0%, rgba(248, 244, 255, 0.2) 60%, transparent 80%);
 }
