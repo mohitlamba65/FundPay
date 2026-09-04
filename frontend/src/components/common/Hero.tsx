@@ -11,15 +11,15 @@ interface HeroProps {
 
 export function Hero({ featuredProduct, loading = false }: HeroProps) {
   const displayProduct = featuredProduct;
-  const price = displayProduct?.minPrice || 112900;
+  const price = displayProduct?.minPrice || 124900;
   const monthlyEmi = Math.round(price / 12);
   const cashback = Math.round(price * 0.03);
   const imageUrl =
     displayProduct?.thumbnailUrl ||
     displayProduct?.variants?.[0]?.imageUrl ||
-    "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80";
-  const productName = displayProduct?.name || "Apple iPhone 16 Pro";
-  const productSlug = displayProduct?.slug || "iphone-16-pro";
+    "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788488983/Apple_iPhone_17_Pro_Deep_Blue_256_GB_gw4k4a.jpg";
+  const productName = displayProduct?.name || "Apple iPhone 17 Pro";
+  const productSlug = displayProduct?.slug || "iphone-17-pro";
 
   return (
     <section className="relative overflow-hidden pt-12 pb-20 sm:pt-16 sm:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">

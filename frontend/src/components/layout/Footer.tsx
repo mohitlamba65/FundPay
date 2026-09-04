@@ -38,8 +38,8 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-[#6B6B6B]">
               <li>
-                <Link to="/products/iphone-16-pro" className="hover:text-[#171717] transition-colors">
-                  iPhone 16 Pro
+                <Link to="/products/iphone-17-pro" className="hover:text-[#171717] transition-colors">
+                  iPhone 17 Pro
                 </Link>
               </li>
               <li>
@@ -48,8 +48,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/products/google-pixel-9-pro" className="hover:text-[#171717] transition-colors">
-                  Pixel 9 Pro
+                <Link to="/products/google-pixel-11-pro" className="hover:text-[#171717] transition-colors">
+                  Pixel 11 Pro
                 </Link>
               </li>
             </ul>

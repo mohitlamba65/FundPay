@@ -73,36 +73,23 @@ async function main() {
   // 3. Seed Products with Variants and EMI Plans
   const productsData = [
     {
-      name: "Apple iPhone 16 Pro",
-      slug: "iphone-16-pro",
+      name: "Apple iPhone 17 Pro",
+      slug: "iphone-17-pro",
       brand: "Apple",
       description:
-        "Supercharged by the A18 Pro chip, featuring Grade 5 Titanium design, 48MP Fusion camera system with 5x Telephoto, Action Button, and industry-leading battery life.",
-      variants: [
-        {
-          storage: "128 GB",
-          color: "Natural Titanium",
-          mrp: 119900,
-          price: 112900,
-          imageUrl:
-            "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
-        },
-        {
-          storage: "256 GB",
-          color: "Desert Titanium",
-          mrp: 129900,
-          price: 121900,
-          imageUrl:
-            "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=800&q=80",
-        },
-        {
-          storage: "512 GB",
-          color: "Black Titanium",
-          mrp: 149900,
-          price: 139900,
-          imageUrl:
-            "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=800&q=80",
-        },
+        "Next-generation Apple iPhone 17 Pro supercharged by the A19 Pro Bionic chip, featuring aerospace-grade Titanium unibody, breakthrough 48MP Pro camera system with periscope telephoto, and all-day battery life.",
+      colorImages: {
+        "Deep Blue":
+          "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788488983/Apple_iPhone_17_Pro_Deep_Blue_256_GB_gw4k4a.jpg",
+        "Cosmic Orange":
+          "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788488981/Apple_iPhone_17_Pro_Cosmic_Orange_256_GB_li7nll.jpg",
+        Silver:
+          "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788488980/Apple_iPhone_17_Pro_Silver_256_GB_lq1qdn.jpg",
+      },
+      storageTiers: [
+        { storage: "256 GB", mrp: 134900, price: 124900 },
+        { storage: "512 GB", mrp: 154900, price: 142900 },
+        { storage: "1 TB", mrp: 174900, price: 161900 },
       ],
     },
     {
@@ -111,64 +98,37 @@ async function main() {
       brand: "Samsung",
       description:
         "Galaxy AI is here. Titanium exterior frame, 200MP camera with Quad Telephoto system, integrated S Pen, anti-reflective Corning Gorilla Armor, and Snapdragon 8 Gen 3 for Galaxy.",
-      variants: [
-        {
-          storage: "256 GB",
-          color: "Titanium Gray",
-          mrp: 134999,
-          price: 124999,
-          imageUrl:
-            "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=80",
-        },
-        {
-          storage: "512 GB",
-          color: "Titanium Black",
-          mrp: 149999,
-          price: 138999,
-          imageUrl:
-            "https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=800&q=80",
-        },
-        {
-          storage: "1 TB",
-          color: "Titanium Violet",
-          mrp: 169999,
-          price: 156999,
-          imageUrl:
-            "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80",
-        },
+      colorImages: {
+        "Titanium Gray":
+          "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788489136/Samsung_Galaxy_S24_Ultra_5G_Titanium_Gray_256_GB_12_GB_RAM_ceqlvl.webp",
+        "Titanium Violet":
+          "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788488979/Samsung_Galaxy_S24_Ultra_5G_Titanium_Violet_256_GB_12_GB_RAM_mpheq2.webp",
+        "Titanium Yellow":
+          "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788489135/Samsung_Galaxy_S24_Ultra_5G_Titanium_Yellow_256_GB_12_GB_RAM_auyodl.webp",
+      },
+      storageTiers: [
+        { storage: "256 GB", mrp: 134999, price: 124999 },
+        { storage: "512 GB", mrp: 149999, price: 138999 },
+        { storage: "1 TB", mrp: 169999, price: 156999 },
       ],
     },
     {
-      name: "Google Pixel 9 Pro",
-      slug: "google-pixel-9-pro",
+      name: "Google Pixel 11 Pro",
+      slug: "google-pixel-11-pro",
       brand: "Google",
       description:
-        "Engineered by Google with Gemini AI natively integrated. Elegant matte glass finish, triple rear pro-level camera system, all-day battery life, and the Google Tensor G4 processor.",
-      variants: [
-        {
-          storage: "128 GB",
-          color: "Porcelain",
-          mrp: 109999,
-          price: 99999,
-          imageUrl:
-            "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80",
-        },
-        {
-          storage: "256 GB",
-          color: "Obsidian",
-          mrp: 119999,
-          price: 108999,
-          imageUrl:
-            "https://images.unsplash.com/photo-1511707171634-5f897ff02560?auto=format&fit=crop&w=800&q=80",
-        },
-        {
-          storage: "512 GB",
-          color: "Hazel",
-          mrp: 134999,
-          price: 122999,
-          imageUrl:
-            "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?auto=format&fit=crop&w=800&q=80",
-        },
+        "Engineered by Google with next-generation Gemini Nano AI. Features an advanced triple pro-camera system, sculpted matte glass enclosure, and the custom Google Tensor G5 silicon.",
+      colorImages: {
+        Fog: "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788488980/Google_Pixel_11_Pro_Fog_256_GB_12_GB_RAM_orvctq.webp",
+        Obsidian:
+          "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788488978/Google_Pixel_11_Pro_Obsidian_256_GB_12_GB_RAM_gg0eyp.webp",
+        Canyon:
+          "https://res.cloudinary.com/dkhnq43nd/image/upload/v1788488978/Google_Pixel_11_Pro_Canyon_256_GB_12_GB_RAM_pp78h8.webp",
+      },
+      storageTiers: [
+        { storage: "256 GB", mrp: 119999, price: 108999 },
+        { storage: "512 GB", mrp: 134999, price: 122999 },
+        { storage: "1 TB", mrp: 149999, price: 136999 },
       ],
     },
   ];
@@ -219,39 +179,42 @@ async function main() {
 
     console.log(`Created Product: ${product.name} (${product.slug})`);
 
-    for (const vData of prodData.variants) {
-      const variant = await prisma.variant.create({
-        data: {
-          productId: product.id,
-          storage: vData.storage,
-          color: vData.color,
-          mrp: vData.mrp,
-          price: vData.price,
-          imageUrl: vData.imageUrl,
-        },
-      });
-
-      console.log(`  └─ Variant: ${variant.storage} ${variant.color} - ₹${variant.price}`);
-
-      // Create EMI plans for this variant
-      for (const pConfig of planConfigs) {
-        const targetFund = createdFunds[pConfig.fundIndex]!;
-        const monthlyAmount = calculateMonthlyEMI(
-          vData.price,
-          pConfig.interestRate,
-          pConfig.tenureMonths
-        );
-
-        await prisma.eMIPlan.create({
+    // Create combinations of storage tiers and color finishes
+    for (const [colorName, imageUrl] of Object.entries(prodData.colorImages)) {
+      for (const tier of prodData.storageTiers) {
+        const variant = await prisma.variant.create({
           data: {
-            variantId: variant.id,
-            mutualFundId: targetFund.id,
-            tenureMonths: pConfig.tenureMonths,
-            interestRate: pConfig.interestRate,
-            monthlyAmount: monthlyAmount,
-            cashback: pConfig.cashback,
+            productId: product.id,
+            storage: tier.storage,
+            color: colorName,
+            mrp: tier.mrp,
+            price: tier.price,
+            imageUrl: imageUrl,
           },
         });
+
+        console.log(`  └─ Variant: ${variant.storage} ${variant.color} - ₹${variant.price}`);
+
+        // Create EMI plans for this variant
+        for (const pConfig of planConfigs) {
+          const targetFund = createdFunds[pConfig.fundIndex]!;
+          const monthlyAmount = calculateMonthlyEMI(
+            tier.price,
+            pConfig.interestRate,
+            pConfig.tenureMonths
+          );
+
+          await prisma.eMIPlan.create({
+            data: {
+              variantId: variant.id,
+              mutualFundId: targetFund.id,
+              tenureMonths: pConfig.tenureMonths,
+              interestRate: pConfig.interestRate,
+              monthlyAmount: monthlyAmount,
+              cashback: pConfig.cashback,
+            },
+          });
+        }
       }
     }
   }

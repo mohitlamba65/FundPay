@@ -35,7 +35,7 @@ export function HomePage() {
   }, []);
 
   // Use the iPhone or first product as featured
-  const featuredProduct = products.find((p) => p.slug === "iphone-16-pro") || products[0] || null;
+  const featuredProduct = products.find((p) => p.slug === "iphone-17-pro") || products[0] || null;
 
   return (
     <main className="min-h-screen">

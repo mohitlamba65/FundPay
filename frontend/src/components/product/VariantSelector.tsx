@@ -9,11 +9,17 @@ interface VariantSelectorProps {
 // Map color names to modern hex swatches
 function getColorHex(colorName: string): string {
   const lower = colorName.toLowerCase();
-  if (lower.includes("desert")) return "#C9A784";
-  if (lower.includes("natural")) return "#A29F98";
+  if (lower.includes("cosmic") || lower.includes("orange")) return "#E86328";
+  if (lower.includes("blue")) return "#1E3A8A";
+  if (lower.includes("yellow") || lower.includes("gold")) return "#E5D38A";
+  if (lower.includes("violet")) return "#79728E";
+  if (lower.includes("canyon")) return "#B86B53";
+  if (lower.includes("fog")) return "#C4C8C5";
+  if (lower.includes("silver")) return "#E2E8F0";
   if (lower.includes("black") || lower.includes("obsidian")) return "#242526";
   if (lower.includes("gray") || lower.includes("titanium")) return "#7D7E80";
-  if (lower.includes("violet")) return "#79728E";
+  if (lower.includes("desert")) return "#C9A784";
+  if (lower.includes("natural")) return "#A29F98";
   if (lower.includes("porcelain") || lower.includes("white")) return "#F5F5F3";
   if (lower.includes("hazel")) return "#8A9488";
   return "#D1D5DB";
