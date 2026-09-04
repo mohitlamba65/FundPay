@@ -9,7 +9,18 @@ export function createApp() {
 
   const corsOptions: CorsOptions = {
     origin: (origin, callback) => {
-      if (!origin || env.CORS_ORIGIN.includes(origin)) {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+
+      const isAllowed = env.CORS_ORIGIN.some(
+        (allowed) => allowed.trim().replace(/\/+$/, "") === origin.trim().replace(/\/+$/, "")
+      );
+
+      const isVercel = origin.endsWith(".vercel.app");
+
+      if (isAllowed || isVercel) {
         callback(null, true);
       } else {
         callback(null, false);
