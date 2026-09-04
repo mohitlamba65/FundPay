@@ -10,12 +10,12 @@ const router = Router();
 
 router.get("/", productController.getAllProducts);
 
-router.get("/:slug", validateRequest(getProductBySlugSchema), productController.getProductBySlug);
-
 router.post(
   "/calculate-growth",
   validateRequest(calculateGrowthSchema),
   productController.calculateGrowth
 );
+
+router.get("/:slug", validateRequest(getProductBySlugSchema), productController.getProductBySlug);
 
 export default router;

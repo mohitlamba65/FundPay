@@ -1,14 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { TrendingUp, Menu, X, ShieldCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { healthApi, type HealthCheckResponse } from "@/api";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [eligibilityModalOpen, setEligibilityModalOpen] = useState(false);
   const [kycStep, setKycStep] = useState<"phone" | "pan" | "success">("phone");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [healthStatus, setHealthStatus] = useState<HealthCheckResponse | null>(null);
+
+  useEffect(() => {
+    healthApi
+      .checkHealth()
+      .then((res) => setHealthStatus(res))
+      .catch(() =>
+        setHealthStatus({
+          status: "error",
+          timestamp: new Date().toISOString(),
+          database: "disconnected",
+        })
+      );
+  }, []);
 
   const navLinks = [
     { label: "Products", href: "/#products" },
@@ -68,10 +83,33 @@ export function Navbar() {
           </nav>
 
           {/* Actions */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3">
+            {/* Health / DB Status Badge */}
+            <div
+              className="flex items-center gap-1.5 text-xs text-[#6B6B6B] bg-white border border-[#E7E5E4] px-3 py-1.5 rounded-full shadow-2xs"
+              title={`Server: ${healthStatus?.status || "checking..."} | DB: ${healthStatus?.database || "checking..."}`}
+            >
+              <span
+                className={`flex h-2 w-2 rounded-full ${
+                  healthStatus?.database === "connected"
+                    ? "bg-[#16A34A] animate-pulse"
+                    : healthStatus?.database === "disconnected"
+                    ? "bg-[#DC2626]"
+                    : "bg-amber-400 animate-ping"
+                }`}
+              />
+              <span>
+                {healthStatus?.database === "connected"
+                  ? "DB Connected"
+                  : healthStatus?.database === "disconnected"
+                  ? "DB Offline"
+                  : "Checking API"}
+              </span>
+            </div>
+
             <div className="flex items-center gap-1.5 text-xs text-[#6B6B6B] bg-white border border-[#E7E5E4] px-3 py-1.5 rounded-full shadow-2xs">
               <ShieldCheck className="h-3.5 w-3.5 text-[#16A34A]" />
-              <span>0% Effective Interest</span>
+              <span>0% Interest</span>
             </div>
             <Button
               onClick={() => setEligibilityModalOpen(true)}

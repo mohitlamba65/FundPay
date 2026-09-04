@@ -1,7 +1,26 @@
 import { ArrowRight, Sparkles, TrendingUp, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import type { Product } from "@/types";
+import { formatINR } from "@/utils/cn";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export function Hero() {
+interface HeroProps {
+  featuredProduct?: Product | null;
+  loading?: boolean;
+}
+
+export function Hero({ featuredProduct, loading = false }: HeroProps) {
+  const displayProduct = featuredProduct;
+  const price = displayProduct?.minPrice || 112900;
+  const monthlyEmi = Math.round(price / 12);
+  const cashback = Math.round(price * 0.03);
+  const imageUrl =
+    displayProduct?.thumbnailUrl ||
+    displayProduct?.variants?.[0]?.imageUrl ||
+    "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80";
+  const productName = displayProduct?.name || "Apple iPhone 16 Pro";
+  const productSlug = displayProduct?.slug || "iphone-16-pro";
+
   return (
     <section className="relative overflow-hidden pt-12 pb-20 sm:pt-16 sm:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -71,57 +90,72 @@ export function Hero() {
 
           {/* Card Showcase */}
           <div className="relative w-full max-w-md rounded-3xl bg-white p-6 border border-[#E7E5E4] shadow-lg">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs uppercase tracking-wider font-bold text-[#8A8A8A]">
-                Featured Deal
-              </span>
-              <span className="text-xs font-semibold text-[#16A34A] bg-[#ECFDF3] px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                <Sparkles className="h-3 w-3" /> 0% Down Payment
-              </span>
-            </div>
-
-            {/* Featured Image */}
-            <div className="h-64 sm:h-72 w-full flex items-center justify-center bg-[#FAFAF8] rounded-2xl p-4 overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80"
-                alt="iPhone 16 Pro Natural Titanium"
-                className="h-full w-full object-contain hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-
-            <div className="mt-5 space-y-1">
-              <div className="flex justify-between items-baseline">
-                <h3 className="text-lg font-bold text-[#171717]">Apple iPhone 16 Pro</h3>
-                <span className="text-lg font-extrabold text-[#171717]">₹1,12,900</span>
+            {loading ? (
+              <div className="space-y-4">
+                <div className="flex justify-between">
+                  <Skeleton className="h-4 w-24 rounded-full" />
+                  <Skeleton className="h-4 w-32 rounded-full" />
+                </div>
+                <Skeleton className="h-64 sm:h-72 w-full rounded-2xl" />
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-12 w-full rounded-xl" />
               </div>
-              <p className="text-xs text-[#6B6B6B]">
-                Backed by HDFC Top 100 Large Cap Fund
-              </p>
-            </div>
+            ) : (
+              <>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs uppercase tracking-wider font-bold text-[#8A8A8A]">
+                    Featured Deal
+                  </span>
+                  <span className="text-xs font-semibold text-[#16A34A] bg-[#ECFDF3] px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                    <Sparkles className="h-3 w-3" /> 0% Down Payment
+                  </span>
+                </div>
 
-            {/* Floating Info Pill */}
-            <div className="mt-4 p-3 rounded-xl bg-[#FAFAF8] border border-[#E7E5E4] flex items-center justify-between text-xs">
-              <div>
-                <span className="text-[#8A8A8A] block text-[10px] uppercase font-semibold">
-                  12M Plan
-                </span>
-                <span className="text-[#171717] font-bold text-sm">
-                  ₹9,899 <span className="text-[11px] font-normal text-[#6B6B6B]">/mo</span>
-                </span>
-              </div>
-              <div className="text-right">
-                <span className="text-[#16A34A] block text-[10px] uppercase font-semibold">
-                  Cashback
-                </span>
-                <span className="text-[#16A34A] font-bold text-sm">+₹3,000</span>
-              </div>
-              <Link
-                to="/products/iphone-16-pro"
-                className="h-8 px-3.5 rounded-lg bg-[#111111] text-white text-xs font-semibold flex items-center gap-1 hover:bg-black transition-colors"
-              >
-                View
-              </Link>
-            </div>
+                {/* Featured Image */}
+                <div className="h-64 sm:h-72 w-full flex items-center justify-center bg-[#FAFAF8] rounded-2xl p-4 overflow-hidden">
+                  <img
+                    src={imageUrl}
+                    alt={productName}
+                    className="h-full w-full object-contain hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                <div className="mt-5 space-y-1">
+                  <div className="flex justify-between items-baseline">
+                    <h3 className="text-lg font-bold text-[#171717]">{productName}</h3>
+                    <span className="text-lg font-extrabold text-[#171717]">{formatINR(price)}</span>
+                  </div>
+                  <p className="text-xs text-[#6B6B6B]">
+                    Backed by top-tier diversified large cap mutual funds
+                  </p>
+                </div>
+
+                {/* Floating Info Pill */}
+                <div className="mt-4 p-3 rounded-xl bg-[#FAFAF8] border border-[#E7E5E4] flex items-center justify-between text-xs">
+                  <div>
+                    <span className="text-[#8A8A8A] block text-[10px] uppercase font-semibold">
+                      12M Plan
+                    </span>
+                    <span className="text-[#171717] font-bold text-sm">
+                      {formatINR(monthlyEmi)}{" "}
+                      <span className="text-[11px] font-normal text-[#6B6B6B]">/mo</span>
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[#16A34A] block text-[10px] uppercase font-semibold">
+                      Cashback
+                    </span>
+                    <span className="text-[#16A34A] font-bold text-sm">+{formatINR(cashback)}</span>
+                  </div>
+                  <Link
+                    to={`/products/${productSlug}`}
+                    className="h-8 px-3.5 rounded-lg bg-[#111111] text-white text-xs font-semibold flex items-center gap-1 hover:bg-black transition-colors"
+                  >
+                    View
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

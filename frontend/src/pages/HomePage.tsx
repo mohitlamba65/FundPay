@@ -6,7 +6,7 @@ import { HowItWorks } from "@/components/common/HowItWorks";
 import { Benefits } from "@/components/common/Benefits";
 import { TrustSection } from "@/components/common/TrustSection";
 import { FaqSection } from "@/components/common/FaqSection";
-import { productService } from "@/services/product.service";
+import { productsApi } from "@/api";
 import type { Product } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertCircle, RefreshCw, ArrowRight, Sparkles } from "lucide-react";
@@ -21,7 +21,7 @@ export function HomePage() {
     try {
       setLoading(true);
       setError(null);
-      const data = await productService.getProducts();
+      const data = await productsApi.getProducts();
       setProducts(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load products");
@@ -34,10 +34,13 @@ export function HomePage() {
     fetchProducts();
   }, []);
 
+  // Use the iPhone or first product as featured
+  const featuredProduct = products.find((p) => p.slug === "iphone-16-pro") || products[0] || null;
+
   return (
     <main className="min-h-screen">
-      {/* 1. Hero Section */}
-      <Hero />
+      {/* 1. Hero Section with dynamic featured product */}
+      <Hero featuredProduct={featuredProduct} loading={loading} />
 
       {/* 2. Featured Products Section */}
       <section id="products" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E7E5E4]">

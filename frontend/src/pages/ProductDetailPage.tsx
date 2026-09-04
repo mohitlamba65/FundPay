@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { productService } from "@/services/product.service";
+import { productsApi } from "@/api";
 import type { Product, Variant, EMIPlan } from "@/types";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { VariantSelector } from "@/components/product/VariantSelector";
@@ -41,7 +41,7 @@ export function ProductDetailPage() {
       try {
         setLoading(true);
         setError(null);
-        const data = await productService.getProductBySlug(slug);
+        const data = await productsApi.getProductBySlug(slug);
         setProduct(data);
 
         // Select first variant by default

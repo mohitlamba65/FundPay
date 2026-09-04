@@ -1,0 +1,49 @@
+import { apiClient } from "./client";
+import type { ApiResponse, Product, GrowthCalculationResult } from "@/types";
+
+export interface CalculateGrowthParams {
+  monthlyAmount: number;
+  tenureMonths: number;
+  expectedReturnRate: number;
+  interestRate?: number;
+  cashback?: number;
+}
+
+export const productsApi = {
+  /**
+   * GET /api/products
+   * Lists all products with variant summaries & price ranges
+   */
+  async getProducts(): Promise<Product[]> {
+    const response = await apiClient.get<ApiResponse<Product[]>>("/products");
+    return response.data.data;
+  },
+
+  /**
+   * GET /api/products/:slug
+   * Dynamic product page with all variants, images, EMI tenures, cashbacks, & linked mutual funds
+   */
+  async getProductBySlug(slug: string): Promise<Product> {
+    const response = await apiClient.get<ApiResponse<Product>>(`/products/${slug}`);
+    return response.data.data;
+  },
+
+  /**
+   * POST /api/products/calculate-growth
+   * Interactive financial calculator comparing EMI loan cost vs Mutual Fund SIP compounding
+   */
+  async calculateGrowth(params: CalculateGrowthParams): Promise<GrowthCalculationResult> {
+    const payload = {
+      monthlyAmount: params.monthlyAmount,
+      tenureMonths: params.tenureMonths,
+      expectedReturnRate: params.expectedReturnRate,
+      interestRate: params.interestRate ?? 0,
+      cashback: params.cashback ?? 0,
+    };
+    const response = await apiClient.post<ApiResponse<GrowthCalculationResult>>(
+      "/products/calculate-growth",
+      payload
+    );
+    return response.data.data;
+  },
+};

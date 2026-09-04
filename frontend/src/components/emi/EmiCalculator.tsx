@@ -1,6 +1,8 @@
-import { useState, useMemo } from "react";
-import { TrendingUp, ShieldCheck, Sparkles, ArrowUpRight } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { TrendingUp, ShieldCheck, Sparkles, ArrowUpRight, Loader2, CheckCircle2 } from "lucide-react";
 import { formatINR } from "@/utils/cn";
+import { productsApi } from "@/api";
+import type { GrowthCalculationResult } from "@/types";
 
 const TENURE_OPTIONS = [6, 9, 12, 18, 24];
 
@@ -17,51 +19,78 @@ export function EmiCalculator() {
   const [interestRate, setInterestRate] = useState<number>(9.5);
   const expectedReturnRate = 14.5; // Average large cap/flexi cap mutual fund CAGR
 
-  // Dynamic calculations
-  const {
-    monthlyEmi,
-    totalPayable,
-    cashback,
-    projectedMfGrowth,
-    netEffectiveCost,
-  } = useMemo(() => {
-    // EMI formula
-    let emi = 0;
+  // API State
+  const [apiResult, setApiResult] = useState<GrowthCalculationResult | null>(null);
+  const [isCalculating, setIsCalculating] = useState(false);
+
+  // Compute monthly EMI based on principal, tenure, and APR
+  const baseMonthlyEmi = useMemo(() => {
     if (interestRate === 0) {
-      emi = Math.round(amount / tenure);
-    } else {
-      const monthlyRate = interestRate / (12 * 100);
-      emi = Math.round(
-        (amount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
-          (Math.pow(1 + monthlyRate, tenure) - 1)
-      );
+      return Math.round(amount / tenure);
     }
-
-    const totalPaid = emi * tenure;
-    const interest = Math.max(0, totalPaid - amount);
-
-    // Dynamic promotional cashback: 2.5% to 4% of purchase
-    const cb = Math.round(amount * (tenure >= 18 ? 0.04 : tenure >= 12 ? 0.03 : 0.015));
-
-    // SIP Compounding formula for equivalent amount invested
-    const monthlyReturnRate = expectedReturnRate / (12 * 100);
-    const mfValue = Math.round(
-      emi *
-        ((Math.pow(1 + monthlyReturnRate, tenure) - 1) / monthlyReturnRate) *
-        (1 + monthlyReturnRate)
+    const monthlyRate = interestRate / (12 * 100);
+    return Math.round(
+      (amount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
+        (Math.pow(1 + monthlyRate, tenure) - 1)
     );
-    const mfGain = Math.max(0, mfValue - totalPaid);
-    const effectiveCost = Math.max(0, totalPaid - cb - mfGain);
-
-    return {
-      monthlyEmi: emi,
-      totalPayable: totalPaid,
-      totalInterest: interest,
-      cashback: cb,
-      projectedMfGrowth: mfValue,
-      netEffectiveCost: effectiveCost,
-    };
   }, [amount, tenure, interestRate]);
+
+  // Promotional cashback calculation
+  const calculatedCashback = useMemo(() => {
+    return Math.round(amount * (tenure >= 18 ? 0.04 : tenure >= 12 ? 0.03 : 0.015));
+  }, [amount, tenure]);
+
+  // Call POST /api/products/calculate-growth dynamically
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const fetchGrowthCalculation = async () => {
+      try {
+        setIsCalculating(true);
+        const result = await productsApi.calculateGrowth({
+          monthlyAmount: baseMonthlyEmi,
+          tenureMonths: tenure,
+          expectedReturnRate,
+          interestRate,
+          cashback: calculatedCashback,
+        });
+
+        if (isMounted) {
+          setApiResult(result);
+        }
+      } catch (err) {
+        console.error("Failed to compute growth calculation from API:", err);
+      } finally {
+        if (isMounted) {
+          setIsCalculating(false);
+        }
+      }
+    };
+
+    const timer = setTimeout(() => {
+      fetchGrowthCalculation();
+    }, 150); // slight debounce for smooth slider feel
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+      clearTimeout(timer);
+    };
+  }, [baseMonthlyEmi, tenure, interestRate, calculatedCashback]);
+
+  // Derived values with fallback to local calculation while first API call resolves
+  const totalPayable = apiResult ? apiResult.totalInvested : baseMonthlyEmi * tenure;
+  const cashback = apiResult ? apiResult.cashback : calculatedCashback;
+  const projectedWealth = apiResult
+    ? apiResult.projectedWealth
+    : Math.round(
+        baseMonthlyEmi *
+          ((Math.pow(1 + expectedReturnRate / 1200, tenure) - 1) / (expectedReturnRate / 1200)) *
+          (1 + expectedReturnRate / 1200)
+      );
+  const estimatedReturns = apiResult ? apiResult.estimatedReturns : Math.max(0, projectedWealth - totalPayable);
+  const netEffectiveCost = apiResult ? apiResult.netEffectiveCost : Math.max(0, totalPayable - cashback - estimatedReturns);
 
   return (
     <section id="calculator" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -173,17 +202,25 @@ export function EmiCalculator() {
           <div className="pt-6 border-t border-[#E7E5E4] mt-6 flex items-center justify-between text-xs text-[#8A8A8A]">
             <span>Zero Processing Fees</span>
             <span>Zero Foreclosure Charges</span>
-            <span>Instant Digital Verification</span>
+            <span className="flex items-center gap-1 text-[#16A34A]">
+              <CheckCircle2 className="h-3.5 w-3.5" />
+              Dynamic API Engine
+            </span>
           </div>
         </div>
 
         {/* Results Card */}
-        <div className="lg:col-span-5 bg-[#111111] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
+        <div className="lg:col-span-5 bg-[#111111] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden">
           <div>
             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-              <span className="text-xs uppercase tracking-wider text-white/60 font-semibold">
-                Plan Breakdown
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs uppercase tracking-wider text-white/60 font-semibold">
+                  Plan Breakdown
+                </span>
+                {isCalculating && (
+                  <Loader2 className="h-3 w-3 text-[#16A34A] animate-spin" />
+                )}
+              </div>
               <span className="text-xs bg-[#16A34A]/20 text-[#16A34A] border border-[#16A34A]/30 px-2.5 py-0.5 rounded-full font-semibold">
                 {interestRate === 0 ? "0% Interest" : `${interestRate}% APR`}
               </span>
@@ -194,7 +231,7 @@ export function EmiCalculator() {
               <span className="text-xs text-white/60">Estimated Monthly Installment</span>
               <div className="flex items-baseline gap-2">
                 <span className="text-4xl font-bold tracking-tight text-white">
-                  {formatINR(monthlyEmi)}
+                  {formatINR(baseMonthlyEmi)}
                 </span>
                 <span className="text-sm text-white/60">/ mo</span>
               </div>
@@ -225,7 +262,7 @@ export function EmiCalculator() {
                   <TrendingUp className="h-3.5 w-3.5" />
                   Portfolio Growth (@{expectedReturnRate}%):
                 </span>
-                <span className="font-semibold">+{formatINR(projectedMfGrowth - totalPayable)}</span>
+                <span className="font-semibold">+{formatINR(estimatedReturns)}</span>
               </div>
             </div>
           </div>
