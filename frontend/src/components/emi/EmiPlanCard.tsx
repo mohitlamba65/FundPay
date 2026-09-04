@@ -30,7 +30,6 @@ export function EmiPlanCard({ plan, isSelected, onSelect }: EmiPlanCardProps) {
           : "border-[#E5E0EA] bg-white hover:border-[#DCC9F5] hover:bg-[#F8F4FF]/50"
       }`}
     >
-      {/* Top Badges */}
       <div className="flex items-center justify-between gap-2 mb-3">
         <span className="text-xs font-bold uppercase tracking-wider text-[#050505]">
           {plan.tenureMonths} Months
@@ -50,7 +49,6 @@ export function EmiPlanCard({ plan, isSelected, onSelect }: EmiPlanCardProps) {
         </div>
       </div>
 
-      {/* Main Monthly EMI */}
       <div className="space-y-0.5 mb-3">
         <div className="flex items-baseline gap-1">
           <span className="text-2xl sm:text-3xl font-bold tracking-tight text-[#050505]">
@@ -67,19 +65,17 @@ export function EmiPlanCard({ plan, isSelected, onSelect }: EmiPlanCardProps) {
         </p>
       </div>
 
-      {/* Cashback & Mutual Fund Highlight */}
       <div className="space-y-2 pt-3 border-t border-[#E5E0EA] text-xs">
         {plan.cashback > 0 && (
           <div className="flex items-center justify-between text-[#20D66B] font-bold bg-[#ECFDF3] px-2.5 py-1 rounded-lg">
             <span className="flex items-center gap-1">
-              <Sparkles className="h-3 w-3" />
+              <Sparkles className="h-3.5 w-3.5" />
               Cashback
             </span>
             <span>+{formatINR(plan.cashback)}</span>
           </div>
         )}
 
-        {/* Mutual Fund Linkage */}
         <div className="flex items-start justify-between gap-2 text-[#444444]">
           <div className="flex items-center gap-1.5 text-[11px]">
             <TrendingUp className="h-3.5 w-3.5 text-[#6D28D9] shrink-0" />
@@ -93,7 +89,6 @@ export function EmiPlanCard({ plan, isSelected, onSelect }: EmiPlanCardProps) {
         </div>
       </div>
 
-      {/* Selection Indicator */}
       <div className="mt-4 pt-2 flex items-center justify-between border-t border-[#E5E0EA]/70">
         <span className="text-[11px] text-[#777777]">
           Net cost: <strong className="text-[#050505]">{formatINR(plan.netEffectiveCost)}</strong>

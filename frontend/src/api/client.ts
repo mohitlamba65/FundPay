@@ -2,9 +2,6 @@ import axios, { AxiosError, type AxiosInstance, type InternalAxiosRequestConfig,
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
-/**
- * Custom application API error wrapper
- */
 export class ApiClientError extends Error {
   statusCode: number;
   data?: unknown;
@@ -17,9 +14,6 @@ export class ApiClientError extends Error {
   }
 }
 
-/**
- * Configured Axios instance with standard timeouts and headers
- */
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
@@ -29,10 +23,8 @@ export const apiClient: AxiosInstance = axios.create({
   },
 });
 
-// Request interceptor
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // You can attach auth tokens or custom request tracking here
     return config;
   },
   (error) => {
@@ -40,7 +32,6 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response interceptor to format errors gracefully
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
     return response;

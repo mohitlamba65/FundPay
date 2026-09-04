@@ -97,7 +97,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom 1Fi smooth lavender glow and diffuse nav shadow */
 .shadow-1fi-nav {
   box-shadow: 0 10px 30px rgba(80, 40, 120, 0.08);
 }

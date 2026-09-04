@@ -2,12 +2,10 @@ import { Router } from "express";
 import productRoutes from "./product.routes.js";
 import { prisma } from "../config/database.js";
 
-const apiRouter = Router();
+const router = Router();
 
-// Health check endpoint
-apiRouter.get("/health", async (_req, res) => {
+router.get("/health", async (_req, res) => {
   try {
-    // Quick DB ping
     await prisma.$queryRaw`SELECT 1`;
     res.status(200).json({
       status: "ok",
@@ -15,16 +13,15 @@ apiRouter.get("/health", async (_req, res) => {
       database: "connected",
     });
   } catch (error) {
-    res.status(500).json({
-      status: "error",
+    res.status(503).json({
+      status: "degraded",
       timestamp: new Date().toISOString(),
       database: "disconnected",
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: error instanceof Error ? error.message : "Unknown database error",
     });
   }
 });
 
-// Mount product routes
-apiRouter.use("/products", productRoutes);
+router.use("/products", productRoutes);
 
-export default apiRouter;
+export default router;

@@ -7,14 +7,19 @@ import { env } from "./config/env.js";
 export function createApp() {
   const app = express();
 
-  const hasWildcard = env.CORS_ORIGIN.includes("*");
+  const allowedOrigins = env.CORS_ORIGIN.map((origin) => origin.replace(/\/+$/, ""));
+  const hasWildcard = allowedOrigins.includes("*");
 
   const corsOptions: CorsOptions = {
     origin: hasWildcard
-      ? true // Automatically reflects caller origin, allowing credentials
+      ? true
       : (origin, callback) => {
-          // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
-          if (!origin || env.CORS_ORIGIN.includes(origin)) {
+          if (!origin) {
+            callback(null, true);
+            return;
+          }
+          const normalized = origin.replace(/\/+$/, "");
+          if (allowedOrigins.includes(normalized)) {
             callback(null, true);
           } else {
             callback(null, false);

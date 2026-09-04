@@ -14,16 +14,14 @@ const PRESET_AMOUNTS = [
 ];
 
 export function EmiCalculator() {
-  const [amount, setAmount] = useState<number>(124900); // default iPhone 17 Pro price
+  const [amount, setAmount] = useState<number>(124900);
   const [tenure, setTenure] = useState<number>(12);
   const [interestRate, setInterestRate] = useState<number>(9.5);
-  const expectedReturnRate = 14.5; // Average large cap/flexi cap mutual fund CAGR
+  const expectedReturnRate = 14.5;
 
-  // API State
   const [apiResult, setApiResult] = useState<GrowthCalculationResult | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
-  // Compute monthly EMI based on principal, tenure, and APR
   const baseMonthlyEmi = useMemo(() => {
     if (interestRate === 0) {
       return Math.round(amount / tenure);
@@ -35,12 +33,10 @@ export function EmiCalculator() {
     );
   }, [amount, tenure, interestRate]);
 
-  // Promotional cashback calculation
   const calculatedCashback = useMemo(() => {
     return Math.round(amount * (tenure >= 18 ? 0.04 : tenure >= 12 ? 0.03 : 0.015));
   }, [amount, tenure]);
 
-  // Call POST /api/products/calculate-growth dynamically
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
@@ -79,7 +75,6 @@ export function EmiCalculator() {
     };
   }, [baseMonthlyEmi, tenure, interestRate, calculatedCashback]);
 
-  // Derived values with fallback to local calculation while first API call resolves
   const totalPayable = apiResult ? apiResult.totalInvested : baseMonthlyEmi * tenure;
   const cashback = apiResult ? apiResult.cashback : calculatedCashback;
   const projectedWealth = apiResult
@@ -109,10 +104,8 @@ export function EmiCalculator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        {/* Controls Card */}
         <div className="lg:col-span-7 bg-white rounded-[28px] p-6 sm:p-9 border border-[#DCC9F5] shadow-1fi-card flex flex-col justify-between">
           <div className="space-y-8">
-            {/* Amount Slider */}
             <div>
               <div className="flex justify-between items-center mb-3">
                 <label className="text-[15px] font-bold text-[#050505]">
@@ -133,7 +126,6 @@ export function EmiCalculator() {
                 className="w-full h-2.5 bg-[#F8F4FF] rounded-lg appearance-none cursor-pointer accent-[#6D28D9]"
               />
 
-              {/* Preset quick buttons */}
               <div className="flex items-center gap-2 mt-3 flex-wrap">
                 {PRESET_AMOUNTS.map((p) => (
                   <button
@@ -152,7 +144,6 @@ export function EmiCalculator() {
               </div>
             </div>
 
-            {/* Tenure Segmented Control */}
             <div>
               <div className="flex justify-between items-center mb-3">
                 <label className="text-[15px] font-bold text-[#050505]">
@@ -188,7 +179,6 @@ export function EmiCalculator() {
               </div>
             </div>
 
-            {/* Key Assumptions */}
             <div className="p-4 rounded-[20px] bg-[#F8F4FF] border border-[#DCC9F5] flex items-center justify-between text-xs text-[#444444]">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-[#6D28D9]" />
@@ -210,7 +200,6 @@ export function EmiCalculator() {
           </div>
         </div>
 
-        {/* Results Card */}
         <div className="lg:col-span-5 bg-gradient-to-br from-[#6D28D9] to-[#5420C9] text-white rounded-[28px] p-6 sm:p-9 flex flex-col justify-between shadow-1fi-nav relative overflow-hidden">
           <div>
             <div className="flex items-center justify-between border-b border-white/20 pb-4 mb-6">
@@ -227,7 +216,6 @@ export function EmiCalculator() {
               </span>
             </div>
 
-            {/* Primary Monthly Amount */}
             <div className="space-y-1 mb-6">
               <span className="text-xs text-white/70 uppercase tracking-wider font-medium">Estimated Monthly Installment</span>
               <div className="flex items-baseline gap-2">
@@ -238,7 +226,6 @@ export function EmiCalculator() {
               </div>
             </div>
 
-            {/* Metrics List */}
             <div className="space-y-3.5 text-[15px] border-t border-white/20 pt-5">
               <div className="flex justify-between text-white/80">
                 <span>Principal Device Price:</span>
@@ -268,7 +255,6 @@ export function EmiCalculator() {
             </div>
           </div>
 
-          {/* Net Cost Box */}
           <div className="mt-8 pt-5 border-t border-white/20">
             <div className="flex items-end justify-between p-4 rounded-[20px] bg-white/12 border border-white/20 backdrop-blur-xs">
               <div>

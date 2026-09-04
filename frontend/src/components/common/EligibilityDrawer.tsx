@@ -58,9 +58,7 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
       widthClass="w-full sm:w-[92vw] md:w-[85vw] lg:w-[75vw] xl:w-[68vw] max-w-5xl"
     >
       <div className="grid grid-cols-1 md:grid-cols-12 min-h-full h-full">
-        {/* Left Side: 1Fi Purple Brand Hero Panel with Grid Pattern */}
         <div className="md:col-span-6 bg-gradient-to-br from-[#7C20E8] via-[#6D28D9] to-[#4F16A8] text-white p-8 sm:p-12 flex flex-col justify-between relative overflow-hidden">
-          {/* Decorative Subtle Grid Lines Texture */}
           <div
             className="absolute inset-0 pointer-events-none opacity-20"
             style={{
@@ -70,10 +68,8 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
             }}
           />
 
-          {/* Ambient Glow */}
           <div className="absolute top-1/4 -left-12 w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 
-          {/* Brand Mark */}
           <div className="relative z-10">
             <div className="flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-white/15 backdrop-blur-md text-white border border-white/20 shadow-sm">
@@ -85,7 +81,6 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
             </div>
           </div>
 
-          {/* Middle Headline (Inspired directly by 1Fi screenshot) */}
           <div className="relative z-10 my-auto py-10">
             <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white leading-[1.12]">
               Shop today <br />
@@ -97,7 +92,6 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
             </p>
           </div>
 
-          {/* Bottom Security Trust Badge */}
           <div className="relative z-10 pt-6 border-t border-white/15 space-y-2">
             <div className="flex items-center gap-2 text-xs font-medium text-purple-200">
               <ShieldCheck className="h-4 w-4 text-[#20D66B]" />
@@ -109,9 +103,7 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
           </div>
         </div>
 
-        {/* Right Side: Verification Form Panel */}
         <div className="md:col-span-6 bg-white p-8 sm:p-12 flex flex-col justify-between relative">
-          {/* Close Button */}
           <button
             onClick={handleResetAndClose}
             className="absolute top-6 right-6 p-2 rounded-xl text-[#777777] hover:text-[#050505] hover:bg-[#F8F4FF] transition-colors"
@@ -121,7 +113,6 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
           </button>
 
           <div className="my-auto max-w-md w-full mx-auto">
-            {/* Step 1: Mobile Number Input */}
             {step === "phone" && (
               <div className="space-y-6 animate-in fade-in duration-300">
                 <div>
@@ -156,7 +147,6 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
                     </div>
                   </div>
 
-                  {/* Terms & Conditions Checkbox */}
                   <label className="flex items-start gap-3 cursor-pointer select-none group">
                     <div
                       onClick={() => setAgreedToTerms(!agreedToTerms)}
@@ -186,7 +176,6 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
                     </div>
                   )}
 
-                  {/* Proceed Button */}
                   <Button
                     type="submit"
                     className="w-full bg-[#8E5BF5] hover:bg-[#7C20E8] text-white font-semibold text-base h-13 rounded-[20px] shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]"
@@ -197,7 +186,6 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
               </div>
             )}
 
-            {/* Step 2: Mutual Fund PAN Verification */}
             {step === "pan" && (
               <div className="space-y-6 animate-in fade-in duration-300">
                 <div>
@@ -256,7 +244,6 @@ export function EligibilityDrawer({ isOpen, onClose }: EligibilityDrawerProps) {
               </div>
             )}
 
-            {/* Step 3: Success Pre-Approved Limit Celebration */}
             {step === "success" && (
               <div className="space-y-6 text-center animate-in zoom-in-95 duration-300">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ECFDF3] text-[#20D66B]">

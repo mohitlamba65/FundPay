@@ -26,7 +26,6 @@ export function SlideDrawer({
 }: SlideDrawerProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -45,7 +44,6 @@ export function SlideDrawer({
 
   if (!isOpen) return null;
 
-  // Default width classes
   const resolvedWidth =
     widthClass ||
     (side === "left"
@@ -59,20 +57,17 @@ export function SlideDrawer({
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Backdrop */}
       <div
         onClick={onClose}
         className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-300 animate-in fade-in"
       />
 
-      {/* Drawer Container */}
       <div
         ref={drawerRef}
         role="dialog"
         aria-modal="true"
         className={`fixed inset-y-0 ${sidePositionClasses} ${resolvedWidth} bg-white border-[#E5E0EA] shadow-2xl flex flex-col z-50 focus:outline-none`}
       >
-        {/* Optional Default Header */}
         {!hideHeader && (
           <div className="flex items-center justify-between px-6 sm:px-8 py-5 border-b border-[#E5E0EA] bg-[#FCFAFF]">
             <div className="space-y-1">
@@ -98,12 +93,10 @@ export function SlideDrawer({
           </div>
         )}
 
-        {/* Scrollable Main Content */}
         <div className="flex-1 overflow-y-auto overscroll-contain">
           {children}
         </div>
 
-        {/* Optional Footer */}
         {footer && (
           <div className="border-t border-[#E5E0EA] p-5 sm:p-6 bg-white shrink-0">
             {footer}

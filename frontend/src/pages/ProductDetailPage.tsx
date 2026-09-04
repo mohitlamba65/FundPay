@@ -30,7 +30,6 @@ export function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Modals
   const [breakdownOpen, setBreakdownOpen] = useState(false);
   const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
   const [checkoutStep, setCheckoutStep] = useState<"confirm" | "success">("confirm");
@@ -44,12 +43,10 @@ export function ProductDetailPage() {
         const data = await productsApi.getProductBySlug(slug);
         setProduct(data);
 
-        // Select first variant by default
         if (data.variants && data.variants.length > 0) {
           const firstVariant = data.variants[0]!;
           setSelectedVariant(firstVariant);
 
-          // Select 12M plan by default if available, or first plan
           if (firstVariant.emiPlans && firstVariant.emiPlans.length > 0) {
             const defaultPlan =
               firstVariant.emiPlans.find((p) => p.tenureMonths === 12) ||
@@ -67,7 +64,6 @@ export function ProductDetailPage() {
     fetchProduct();
   }, [slug]);
 
-  // When variant changes, update selected plan to match new variant's equivalent tenure
   const handleVariantSelect = (newVariant: Variant) => {
     setSelectedVariant(newVariant);
     if (newVariant.emiPlans && newVariant.emiPlans.length > 0) {
@@ -130,7 +126,6 @@ export function ProductDetailPage() {
 
   return (
     <div className="min-h-screen pb-32 bg-white">
-      {/* Breadcrumb Navigation */}
       <div className="border-b border-[#E5E0EA] bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center gap-2 text-xs font-medium text-[#777777]">
           <Link to="/" className="hover:text-[#6D28D9] transition-colors flex items-center gap-1">
@@ -144,10 +139,8 @@ export function ProductDetailPage() {
         </div>
       </div>
 
-      {/* Main Product Layout */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Product Gallery */}
           <div className="lg:col-span-6 lg:sticky lg:top-28">
             <ProductGallery
               imageUrl={selectedVariant.imageUrl}
@@ -156,9 +149,7 @@ export function ProductDetailPage() {
             />
           </div>
 
-          {/* Right Column: Configuration & EMI Plan Selection */}
           <div className="lg:col-span-6 space-y-8">
-            {/* Title & Brand */}
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#6D28D9] bg-[#F8F4FF] border border-[#DCC9F5] px-3 py-1 rounded-full">
@@ -180,7 +171,6 @@ export function ProductDetailPage() {
               </p>
             </div>
 
-            {/* Price Header */}
             <div className="p-6 rounded-[24px] bg-[#F8F4FF] border border-[#DCC9F5] flex items-center justify-between shadow-1fi-card">
               <div>
                 <span className="text-xs text-[#777777] block font-semibold uppercase tracking-wider">Lien Purchase Price</span>
@@ -209,14 +199,12 @@ export function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Variant Selectors: Storage & Color */}
             <VariantSelector
               variants={product.variants}
               selectedVariant={selectedVariant}
               onSelectVariant={handleVariantSelect}
             />
 
-            {/* EMI Plans Section */}
             <div className="space-y-4 pt-6 border-t border-[#E5E0EA]">
               <div className="flex items-center justify-between">
                 <div>
@@ -240,7 +228,6 @@ export function ProductDetailPage() {
                 )}
               </div>
 
-              {/* Grid of EMI Plan Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {emiPlans.map((plan) => (
                   <EmiPlanCard
@@ -253,7 +240,6 @@ export function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Selected Plan Summary Banner */}
             {selectedPlan && (
               <div className="rounded-[22px] p-5 bg-[#F8F4FF] border border-[#DCC9F5] space-y-3">
                 <div className="flex items-center justify-between text-xs sm:text-sm">
@@ -280,7 +266,6 @@ export function ProductDetailPage() {
         </div>
       </div>
 
-      {/* Sticky Bottom Action Bar */}
       {selectedPlan && (
         <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#E5E0EA] bg-white/95 backdrop-blur-md py-4 px-4 sm:px-8 shadow-1fi-nav">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 pr-1 sm:pr-4">
@@ -329,7 +314,6 @@ export function ProductDetailPage() {
         </div>
       )}
 
-      {/* Breakdown Dialog */}
       <EmiBreakdownDialog
         open={breakdownOpen}
         onOpenChange={setBreakdownOpen}
@@ -338,7 +322,6 @@ export function ProductDetailPage() {
         onProceed={handleProceedWithPlan}
       />
 
-      {/* Checkout / Order Intent Modal */}
       <Dialog open={checkoutModalOpen} onOpenChange={setCheckoutModalOpen}>
         <DialogContent className="sm:max-w-md rounded-[28px] p-6 sm:p-8 bg-white border border-[#DCC9F5] shadow-2xl">
           {checkoutStep === "confirm" ? (

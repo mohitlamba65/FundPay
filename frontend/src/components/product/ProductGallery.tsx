@@ -9,7 +9,6 @@ interface ProductGalleryProps {
 export function ProductGallery({ imageUrl, productName, selectedColor }: ProductGalleryProps) {
   return (
     <div className="flex flex-col gap-4">
-      {/* Main Image Stage */}
       <div className="relative aspect-square w-full rounded-3xl bg-white border border-[#E7E5E4] p-8 sm:p-12 flex items-center justify-center overflow-hidden shadow-xs">
         <img
           key={imageUrl}
@@ -24,7 +23,6 @@ export function ProductGallery({ imageUrl, productName, selectedColor }: Product
         </div>
       </div>
 
-      {/* Trust Badges */}
       <div className="grid grid-cols-3 gap-2 text-center text-xs text-[#6B6B6B]">
         <div className="p-3 rounded-2xl bg-white border border-[#E7E5E4] flex flex-col items-center gap-1">
           <Truck className="h-4 w-4 text-[#171717]" />

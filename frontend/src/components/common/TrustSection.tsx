@@ -42,7 +42,6 @@ export function TrustSection() {
           </div>
         </div>
 
-        {/* Partner Logos Strip */}
         <div className="mt-12 pt-8 border-t border-[#DCC9F5]/70 flex flex-wrap items-center justify-center gap-8 text-xs font-semibold uppercase tracking-widest text-[#777777]">
           <span className="flex items-center gap-1.5"><CheckCircle className="h-3.5 w-3.5 text-[#20D66B]" /> HDFC Mutual Fund</span>
           <span className="flex items-center gap-1.5"><CheckCircle className="h-3.5 w-3.5 text-[#20D66B]" /> ICICI Prudential</span>

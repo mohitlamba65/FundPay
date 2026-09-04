@@ -1,7 +1,6 @@
 import { prisma } from "../config/database.js";
 
 export class ProductRepository {
-
   async findAll() {
     return prisma.product.findMany({
       where: { isActive: true },
@@ -36,7 +35,6 @@ export class ProductRepository {
     });
   }
 
-  
   async findVariantById(variantId: string) {
     return prisma.variant.findUnique({
       where: { id: variantId, isActive: true },

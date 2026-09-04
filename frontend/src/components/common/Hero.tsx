@@ -23,14 +23,11 @@ export function Hero({ featuredProduct, loading = false }: HeroProps) {
 
   return (
     <section className="relative overflow-hidden bg-hero-gradient pt-8 sm:pt-14 pb-20 sm:pb-28">
-      {/* Background Ambient Glow */}
       <div className="absolute inset-0 bg-hero-glow pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Editorial Text Content */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            {/* 1Fi Small White Hero Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E5E0EA] text-[13px] font-medium text-[#444444] shadow-1fi-nav">
               <Sparkles className="h-4 w-4 text-[#7C20E8]" />
               <span className="text-[#050505] font-semibold">1Fi Inspired</span>
@@ -38,7 +35,6 @@ export function Hero({ featuredProduct, loading = false }: HeroProps) {
               <span className="italic text-[#777777]">Shop using your investments</span>
             </div>
 
-            {/* Signature 1Fi Large Editorial Headline */}
             <h1 className="text-[52px] sm:text-[72px] lg:text-[84px] font-bold tracking-[-0.045em] leading-[0.98] text-[#050505]">
               <span className="italic font-normal text-[#777777] block text-[42px] sm:text-[62px] lg:text-[72px] mb-1">
                 Pay later with zero interest.
@@ -51,12 +47,10 @@ export function Hero({ featuredProduct, loading = false }: HeroProps) {
               </span>
             </h1>
 
-            {/* Subtitle */}
             <p className="text-[17px] sm:text-[19px] text-[#444444] max-w-xl mx-auto lg:mx-0 leading-[1.55] font-normal">
               Pledge your mutual fund portfolio as collateral to take home the newest flagship smartphones. Enjoy <strong>0% effective interest</strong>, zero down payment, and zero portfolio liquidation.
             </p>
 
-            {/* CTA Group: Two Horizontally Aligned Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
               <a
                 href="#products"
@@ -75,18 +69,14 @@ export function Hero({ featuredProduct, loading = false }: HeroProps) {
               </a>
             </div>
 
-            {/* Trust Copy directly beneath CTA */}
             <p className="text-xs sm:text-[13px] text-[#777777] pt-1">
               SEBI registered RTA lien integration • Zero foreclosure fee • Instant digital approval
             </p>
           </div>
 
-          {/* Right Product Hero Stage with Lavender Rounded Container & Overhanging Product */}
           <div className="lg:col-span-5 relative flex items-center justify-center">
-            {/* Ambient Background Gradient Glow */}
             <div className="absolute -inset-6 rounded-[36px] bg-gradient-to-tr from-[#EFDAFF]/80 via-[#F8F4FF]/90 to-transparent blur-2xl -z-10" />
 
-            {/* Card Container */}
             <div className="relative w-full max-w-md rounded-[28px] bg-[#F8F4FF] p-6 sm:p-7 border border-[#DCC9F5] shadow-1fi-card overflow-visible group">
               {loading ? (
                 <div className="space-y-4">
@@ -106,7 +96,6 @@ export function Hero({ featuredProduct, loading = false }: HeroProps) {
                     </span>
                   </div>
 
-                  {/* Cutout Product Image with Partial Extrusion & Smooth Hover */}
                   <div className="relative h-64 sm:h-76 w-full flex items-center justify-center bg-white rounded-[24px] p-6 border border-[#E5E0EA] overflow-hidden">
                     <img
                       src={imageUrl}
@@ -115,7 +104,6 @@ export function Hero({ featuredProduct, loading = false }: HeroProps) {
                     />
                   </div>
 
-                  {/* Product Title & Brand */}
                   <div className="mt-5 space-y-1">
                     <div className="flex justify-between items-baseline">
                       <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#050505]">
@@ -130,7 +118,6 @@ export function Hero({ featuredProduct, loading = false }: HeroProps) {
                     </p>
                   </div>
 
-                  {/* Floating Info Pill */}
                   <div className="mt-4 p-3.5 rounded-[18px] bg-white border border-[#DCC9F5] flex items-center justify-between text-xs shadow-1fi-nav">
                     <div>
                       <span className="text-[#A0A0A0] block text-[10px] uppercase font-bold tracking-wider">

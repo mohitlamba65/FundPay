@@ -6,7 +6,6 @@ interface VariantSelectorProps {
   onSelectVariant: (variant: Variant) => void;
 }
 
-// Map color names to modern hex swatches
 function getColorHex(colorName: string): string {
   const lower = colorName.toLowerCase();
   if (lower.includes("cosmic") || lower.includes("orange")) return "#E86328";
@@ -30,12 +29,10 @@ export function VariantSelector({
   selectedVariant,
   onSelectVariant,
 }: VariantSelectorProps) {
-  // Extract unique storages and colors
   const storages = [...new Set(variants.map((v) => v.storage))];
   const colors = [...new Set(variants.map((v) => v.color))];
 
   const handleStorageChange = (storage: string) => {
-    // Find variant with same color and new storage, or fallback to first matching storage
     const match =
       variants.find((v) => v.storage === storage && v.color === selectedVariant.color) ||
       variants.find((v) => v.storage === storage);
@@ -43,7 +40,6 @@ export function VariantSelector({
   };
 
   const handleColorChange = (color: string) => {
-    // Find variant with same storage and new color, or fallback to first matching color
     const match =
       variants.find((v) => v.color === color && v.storage === selectedVariant.storage) ||
       variants.find((v) => v.color === color);
@@ -52,7 +48,6 @@ export function VariantSelector({
 
   return (
     <div className="space-y-6">
-      {/* Storage Options */}
       <div>
         <div className="flex justify-between items-center mb-2.5">
           <label className="text-xs font-bold uppercase tracking-wider text-[#050505]">
@@ -84,7 +79,6 @@ export function VariantSelector({
         </div>
       </div>
 
-      {/* Color Options */}
       <div>
         <div className="flex justify-between items-center mb-2.5">
           <label className="text-xs font-bold uppercase tracking-wider text-[#050505]">

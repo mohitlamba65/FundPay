@@ -13,13 +13,10 @@ export function ProductCard({ product }: ProductCardProps) {
   const mrpPrices = product.variants?.map((v) => Number(v.mrp)) || [];
   const minMrp = mrpPrices.length > 0 ? Math.min(...mrpPrices) : minPrice;
 
-  // Approximate 24-month or 12-month lowest monthly installment
   const lowestEmi = Math.round(minPrice / 24);
 
-  // Default display image
   const displayImage = product.variants?.[0]?.imageUrl || product.thumbnailUrl || "";
 
-  // Badge label mapping for editorial feel
   let badgeLabel = "Best Seller";
   if (product.brand.toLowerCase() === "apple") badgeLabel = "Featured Flagship";
   else if (product.brand.toLowerCase() === "google") badgeLabel = "AI Flagship";
@@ -30,7 +27,6 @@ export function ProductCard({ product }: ProductCardProps) {
       className="group relative flex flex-col justify-between rounded-[28px] bg-[#F8F4FF] p-6 sm:p-7 border border-[#DCC9F5] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-1fi-hover hover:border-[#6D28D9] cursor-pointer"
     >
       <div>
-        {/* Badges Top Bar */}
         <div className="flex items-center justify-between gap-2 mb-4">
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#6D28D9] bg-white px-3 py-1 rounded-full border border-[#DCC9F5] shadow-2xs">
             <Sparkles className="h-3 w-3 text-[#7C20E8]" />
@@ -41,7 +37,6 @@ export function ProductCard({ product }: ProductCardProps) {
           </span>
         </div>
 
-        {/* Product Image Stage with clean white inset container */}
         <div className="relative flex h-64 sm:h-72 w-full items-center justify-center overflow-hidden rounded-[22px] bg-white p-6 border border-[#E5E0EA] transition-colors group-hover:border-[#DCC9F5]">
           <img
             src={displayImage}
@@ -51,7 +46,6 @@ export function ProductCard({ product }: ProductCardProps) {
           />
         </div>
 
-        {/* Product Meta */}
         <div className="mt-6 space-y-2">
           <h3 className="text-[26px] sm:text-[28px] font-bold tracking-tight text-[#050505] leading-tight group-hover:text-[#6D28D9] transition-colors">
             {product.name}
@@ -61,7 +55,6 @@ export function ProductCard({ product }: ProductCardProps) {
           </p>
         </div>
 
-        {/* Available Color Swatches / Tags */}
         {product.availableColors && product.availableColors.length > 0 && (
           <div className="mt-4 flex items-center gap-1.5 flex-wrap">
             {product.availableColors.map((color) => (
@@ -76,7 +69,6 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
 
-      {/* Pricing & CTA Section */}
       <div className="mt-8 pt-5 border-t border-[#DCC9F5]">
         <div className="flex items-end justify-between mb-4">
           <div>

@@ -53,13 +53,11 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E5E0EA]">
       <div className="text-center max-w-3xl mx-auto mb-16">
-        {/* Outlined Pill Label */}
         <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F8F4FF] border border-[#DCC9F5] text-xs font-semibold uppercase tracking-wider text-[#6D28D9] mb-4 shadow-2xs">
           <Sparkles className="h-3.5 w-3.5 text-[#7C20E8]" />
           <span>Simple 4-Step Journey</span>
         </div>
 
-        {/* Large Editorial Heading */}
         <h2 className="text-[40px] sm:text-[56px] font-bold tracking-[-0.04em] text-[#050505] leading-[1.05]">
           How you upgrade <span className="italic font-normal text-[#777777]">without selling</span>{" "}
           <span className="text-[#6D28D9]">your portfolio</span>
@@ -69,7 +67,6 @@ export function HowItWorks() {
         </p>
       </div>
 
-      {/* Step Navigation Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
         {STEPS.map((step, idx) => {
           const StepIcon = step.icon;
@@ -105,7 +102,6 @@ export function HowItWorks() {
         })}
       </div>
 
-      {/* Interactive Detail Box */}
       <div className="bg-white rounded-[28px] border border-[#DCC9F5] p-8 sm:p-12 shadow-1fi-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div className="lg:col-span-7 space-y-5">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F8F4FF] text-[#6D28D9] text-xs font-semibold border border-[#DCC9F5]">
@@ -149,7 +145,6 @@ export function HowItWorks() {
           </div>
         </div>
 
-        {/* Visual Graphic Representation */}
         <div className="lg:col-span-5 flex items-center justify-center p-8 bg-[#F8F4FF] rounded-[24px] border border-[#DCC9F5]">
           <div className="text-center space-y-4">
             <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-[24px] bg-white shadow-sm border border-[#DCC9F5]">

@@ -34,15 +34,12 @@ export function HomePage() {
     fetchProducts();
   }, []);
 
-  // Use the iPhone or first product as featured
   const featuredProduct = products.find((p) => p.slug === "iphone-17-pro") || products[0] || null;
 
   return (
     <main className="min-h-screen bg-white">
-      {/* 1. Hero Section with dynamic featured product */}
       <Hero featuredProduct={featuredProduct} loading={loading} />
 
-      {/* 2. Featured Products Section */}
       <section id="products" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E5E0EA]">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           <div>
@@ -64,7 +61,6 @@ export function HomePage() {
           </div>
         </div>
 
-        {/* Loading State */}
         {loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3].map((n) => (
@@ -82,7 +78,6 @@ export function HomePage() {
           </div>
         )}
 
-        {/* Error State with Retry */}
         {!loading && error && (
           <div className="rounded-[28px] border border-red-200 bg-red-50/60 p-8 text-center max-w-md mx-auto space-y-4">
             <AlertCircle className="h-10 w-10 text-[#DC2626] mx-auto" />
@@ -98,7 +93,6 @@ export function HomePage() {
           </div>
         )}
 
-        {/* Dynamic Products Grid */}
         {!loading && !error && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
@@ -108,22 +102,12 @@ export function HomePage() {
         )}
       </section>
 
-      {/* 3. Interactive EMI Calculator */}
       <EmiCalculator />
-
-      {/* 4. How It Works Timeline */}
       <HowItWorks />
-
-      {/* 5. Benefits */}
       <Benefits />
-
-      {/* 6. Trust & Security */}
       <TrustSection />
-
-      {/* 7. FAQs */}
       <FaqSection />
 
-      {/* 8. Conversion Banner */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="rounded-[32px] bg-gradient-to-br from-[#6D28D9] via-[#5420C9] to-[#4012A3] text-white p-8 sm:p-16 text-center relative overflow-hidden shadow-1fi-nav">
           <div className="max-w-3xl mx-auto space-y-6 relative z-10">

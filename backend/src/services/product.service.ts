@@ -33,7 +33,6 @@ export class ProductService {
     });
   }
 
-
   async getProductBySlug(slug: string) {
     const product = await this.repo.findBySlug(slug);
 
@@ -51,7 +50,7 @@ export class ProductService {
 
         const totalEmiPaid = monthlyAmount * tenureMonths;
         const totalInterestPaid = totalEmiPaid - Number(variant.price);
-      
+
         const monthlyReturnRate = expectedReturnRate / (12 * 100);
         const projectedMfValue = Math.round(
           monthlyAmount *

@@ -6,7 +6,6 @@ export function Footer() {
     <footer className="border-t border-[#E5E0EA] bg-white pt-16 pb-12 text-[#050505]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 pb-12 border-b border-[#E5E0EA]">
-          {/* Brand Info */}
           <div className="md:col-span-2 space-y-4">
             <Link to="/" className="flex items-center gap-3 group">
               <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-[#6D28D9] text-white shadow-xs">
@@ -31,7 +30,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#050505] mb-3">
               Shop Flagships
@@ -100,7 +98,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Disclaimer & Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#777777]">
           <p>
             © {new Date().getFullYear()} FundPay Financial Technologies Pvt Ltd. All rights reserved.

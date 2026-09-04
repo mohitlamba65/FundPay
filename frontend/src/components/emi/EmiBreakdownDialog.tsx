@@ -79,9 +79,7 @@ export function EmiBreakdownDialog({
       }
     >
       <div className="p-6 sm:p-8 space-y-8">
-        {/* 1. Top 3 Key Analytics Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {/* Card 1: Monthly Debit */}
           <div className="p-5 rounded-[22px] bg-[#F8F4FF] border border-[#DCC9F5] shadow-xs">
             <span className="text-[11px] font-bold text-[#777777] uppercase tracking-wider block">
               Monthly Installment
@@ -96,7 +94,6 @@ export function EmiBreakdownDialog({
             </div>
           </div>
 
-          {/* Card 2: Projected Mutual Fund Gain */}
           <div className="p-5 rounded-[22px] bg-[#F8F4FF] border border-[#DCC9F5] shadow-xs">
             <span className="text-[11px] font-bold text-[#777777] uppercase tracking-wider block">
               Projected Fund Growth
@@ -109,7 +106,6 @@ export function EmiBreakdownDialog({
             </div>
           </div>
 
-          {/* Card 3: Net Effective Cost */}
           <div className="p-5 rounded-[22px] bg-gradient-to-br from-[#6D28D9] to-[#5420C9] text-white shadow-xs">
             <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider block">
               Net Effective Cost
@@ -123,7 +119,6 @@ export function EmiBreakdownDialog({
           </div>
         </div>
 
-        {/* 2. Detailed Financial Ledger Breakdown */}
         <div className="rounded-[24px] border border-[#E5E0EA] bg-white overflow-hidden shadow-xs">
           <div className="px-6 py-4 border-b border-[#E5E0EA] bg-[#FCFAFF] flex items-center justify-between">
             <h4 className="text-sm font-bold text-[#050505] uppercase tracking-wider">
@@ -170,7 +165,6 @@ export function EmiBreakdownDialog({
           </div>
         </div>
 
-        {/* 3. Linked Mutual Fund Collateral Details */}
         <div className="p-6 rounded-[24px] bg-[#F8F4FF] border border-[#DCC9F5] space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DCC9F5]/70 pb-3">
             <div>

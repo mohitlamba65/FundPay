@@ -9,13 +9,7 @@ import {
 const router = Router();
 
 router.get("/", productController.getAllProducts);
-
-router.post(
-  "/calculate-growth",
-  validateRequest(calculateGrowthSchema),
-  productController.calculateGrowth
-);
-
 router.get("/:slug", validateRequest(getProductBySlugSchema), productController.getProductBySlug);
+router.post("/calculate-growth", validateRequest(calculateGrowthSchema), productController.calculateGrowth);
 
 export default router;

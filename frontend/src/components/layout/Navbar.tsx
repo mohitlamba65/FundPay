@@ -19,10 +19,8 @@ export function Navbar() {
 
   return (
     <>
-      {/* 1Fi Floating Centered Navbar */}
       <div className="sticky top-4 sm:top-6 z-50 w-full px-4 sm:px-6">
         <header className="mx-auto w-full max-w-7xl h-[78px] sm:h-[86px] rounded-[22px] bg-white/92 backdrop-blur-md border border-[#E5E0EA] px-5 sm:px-8 flex items-center justify-between shadow-1fi-nav transition-all">
-          {/* Logo Mark */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-[16px] bg-[#6D28D9] text-white transition-transform group-hover:scale-105 shadow-sm">
               <TrendingUp className="h-6 w-6 stroke-[2.4]" />
@@ -37,7 +35,6 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links (Large gaps 32–42px, 18–20px font) */}
           <nav className="hidden lg:flex items-center gap-8 xl:gap-10">
             {navLinks.map((link) => {
               const isActive = location.pathname === "/" && location.hash === link.href.replace("/", "");
@@ -55,9 +52,7 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right Action Group */}
           <div className="hidden sm:flex items-center gap-4">
-            {/* Shop Now / Check Eligibility Primary Button */}
             <Button
               onClick={() => setEligibilityDrawerOpen(true)}
               className="bg-[#6D28D9] hover:bg-[#5420C9] text-white text-[16px] font-medium rounded-[18px] px-6 h-12 shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
@@ -67,7 +62,6 @@ export function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden p-2.5 rounded-xl text-[#050505] hover:bg-[#F8F4FF] transition-colors"
@@ -77,7 +71,6 @@ export function Navbar() {
           </button>
         </header>
 
-        {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
           <div className="lg:hidden mx-auto mt-2 w-full max-w-7xl rounded-[22px] bg-white border border-[#E5E0EA] p-6 shadow-1fi-nav animate-in slide-in-from-top-3">
             <nav className="flex flex-col space-y-4">
@@ -107,7 +100,6 @@ export function Navbar() {
         )}
       </div>
 
-      {/* 1Fi-Inspired Right Slide Sheet Drawer for Eligibility */}
       <EligibilityDrawer
         isOpen={eligibilityDrawerOpen}
         onClose={() => setEligibilityDrawerOpen(false)}
@@ -115,4 +107,3 @@ export function Navbar() {
     </>
   );
 }
-

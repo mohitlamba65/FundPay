@@ -7,10 +7,6 @@ export interface HealthCheckResponse {
   error?: string;
 }
 
-/**
- * Health API service
- * Verifies backend connectivity and database health
- */
 export const healthApi = {
   async checkHealth(): Promise<HealthCheckResponse> {
     const response = await apiClient.get<HealthCheckResponse>("/health");
