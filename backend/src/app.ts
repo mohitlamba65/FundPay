@@ -20,7 +20,6 @@ export function createApp() {
             callback(null, false);
           }
         },
-    methods: env.CORS_METHODS,
     credentials: env.CORS_CREDENTIALS,
   };
 
