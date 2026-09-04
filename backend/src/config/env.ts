@@ -25,7 +25,6 @@ export const env = {
   CORS_ORIGIN: parseCommaSeparated(process.env.CORS_ORIGIN, [
     "http://localhost:5173",
     "http://localhost:5174",
-    "*",
   ]),
   CORS_METHODS: parseCommaSeparated(process.env.CORS_METHODS, [
     "GET",

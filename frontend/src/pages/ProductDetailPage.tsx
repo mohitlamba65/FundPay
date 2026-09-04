@@ -6,7 +6,6 @@ import { ProductGallery } from "@/components/product/ProductGallery";
 import { VariantSelector } from "@/components/product/VariantSelector";
 import { EmiPlanCard } from "@/components/emi/EmiPlanCard";
 import { EmiBreakdownDialog } from "@/components/emi/EmiBreakdownDialog";
-import { FloatingChat } from "@/components/common/FloatingChat";
 import { formatINR } from "@/utils/cn";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
@@ -284,7 +283,7 @@ export function ProductDetailPage() {
       {/* Sticky Bottom Action Bar */}
       {selectedPlan && (
         <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#E5E0EA] bg-white/95 backdrop-blur-md py-4 px-4 sm:px-8 shadow-1fi-nav">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 pr-1 sm:pr-4">
             <div className="flex items-center gap-4">
               <div className="hidden sm:block h-12 w-12 rounded-[14px] bg-[#F8F4FF] border border-[#DCC9F5] p-1 shrink-0 overflow-hidden">
                 <img
@@ -431,9 +430,6 @@ export function ProductDetailPage() {
           )}
         </DialogContent>
       </Dialog>
-
-      {/* Floating Support Chat Button */}
-      <FloatingChat />
     </div>
   );
 }

@@ -6,7 +6,6 @@ import { HowItWorks } from "@/components/common/HowItWorks";
 import { Benefits } from "@/components/common/Benefits";
 import { TrustSection } from "@/components/common/TrustSection";
 import { FaqSection } from "@/components/common/FaqSection";
-import { FloatingChat } from "@/components/common/FloatingChat";
 import { productsApi } from "@/api";
 import type { Product } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -153,9 +152,6 @@ export function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Floating Support Chat Button */}
-      <FloatingChat />
     </main>
   );
 }
