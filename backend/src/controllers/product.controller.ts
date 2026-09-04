@@ -4,9 +4,6 @@ import { productService, ProductService } from "../services/product.service.js";
 export class ProductController {
   constructor(private service: ProductService = productService) {}
 
-  /**
-   * GET /api/products
-   */
   getAllProducts = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const products = await this.service.getAllProducts();
@@ -19,9 +16,6 @@ export class ProductController {
     }
   };
 
-  /**
-   * GET /api/products/:slug
-   */
   getProductBySlug = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { slug } = req.params as { slug: string };
@@ -35,9 +29,6 @@ export class ProductController {
     }
   };
 
-  /**
-   * POST /api/plans/calculate-growth
-   */
   calculateGrowth = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const result = this.service.calculateFinancialGrowth(req.body);

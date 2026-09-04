@@ -6,7 +6,6 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 export function createApp() {
   const app = express();
 
-  // Middleware
   app.use(
     cors({
       origin: ["http://localhost:5173", "http://localhost:3000", "*"],
@@ -16,10 +15,8 @@ export function createApp() {
   );
   app.use(express.json());
 
-  // Mount API
   app.use("/api", apiRouter);
 
-  // 404 Fallback
   app.use((_req, res) => {
     res.status(404).json({
       success: false,
@@ -27,7 +24,6 @@ export function createApp() {
     });
   });
 
-  // Global Error Handler
   app.use(errorHandler);
 
   return app;

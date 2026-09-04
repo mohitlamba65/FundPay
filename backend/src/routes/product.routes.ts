@@ -8,13 +8,10 @@ import {
 
 const router = Router();
 
-// GET /api/products - list all products
 router.get("/", productController.getAllProducts);
 
-// GET /api/products/:slug - get product details with variants & EMI plans
 router.get("/:slug", validateRequest(getProductBySlugSchema), productController.getProductBySlug);
 
-// POST /api/products/calculate-growth - financial projection
 router.post(
   "/calculate-growth",
   validateRequest(calculateGrowthSchema),

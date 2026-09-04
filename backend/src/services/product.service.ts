@@ -5,9 +5,6 @@ import type { CalculateGrowthInput } from "../schemas/product.schema.js";
 export class ProductService {
   constructor(private repo: ProductRepository = productRepository) {}
 
-  /**
-   * Fetch all products with pricing summary and variant counts
-   */
   async getAllProducts() {
     const products = await this.repo.findAll();
 
@@ -16,7 +13,6 @@ export class ProductService {
       const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
       const maxPrice = prices.length > 0 ? Math.max(...prices) : 0;
 
-      // Unique storage and colors across variants
       const availableStorage = [...new Set(product.variants.map((v) => v.storage))];
       const availableColors = [...new Set(product.variants.map((v) => v.color))];
 
@@ -37,9 +33,7 @@ export class ProductService {
     });
   }
 
-  /**
-   * Fetch a full product page by slug with all variants and mutual-fund backed EMI plans
-   */
+
   async getProductBySlug(slug: string) {
     const product = await this.repo.findBySlug(slug);
 
@@ -47,7 +41,6 @@ export class ProductService {
       throw new AppError(404, `Product with slug '${slug}' not found.`);
     }
 
-    // Enrich variants with calculated savings and mutual fund growth projections
     const enrichedVariants = product.variants.map((variant) => {
       const enrichedPlans = variant.emiPlans.map((plan) => {
         const monthlyAmount = Number(plan.monthlyAmount);
@@ -58,9 +51,7 @@ export class ProductService {
 
         const totalEmiPaid = monthlyAmount * tenureMonths;
         const totalInterestPaid = totalEmiPaid - Number(variant.price);
-
-        // SIP Mutual Fund Growth calculation:
-        // Future Value of monthly SIP: P * [((1+i)^n - 1) / i] * (1+i)
+      
         const monthlyReturnRate = expectedReturnRate / (12 * 100);
         const projectedMfValue = Math.round(
           monthlyAmount *
@@ -116,9 +107,6 @@ export class ProductService {
     };
   }
 
-  /**
-   * Pure financial projection calculator for interactive client adjustments
-   */
   calculateFinancialGrowth(input: CalculateGrowthInput) {
     const { monthlyAmount, tenureMonths, expectedReturnRate, interestRate, cashback } = input;
 
