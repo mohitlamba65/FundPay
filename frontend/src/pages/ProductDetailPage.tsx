@@ -8,6 +8,7 @@ import { EmiPlanCard } from "@/components/emi/EmiPlanCard";
 import { EmiBreakdownDialog } from "@/components/emi/EmiBreakdownDialog";
 import { formatINR } from "@/utils/cn";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ServerWakeupLoader } from "@/components/common/ServerWakeupLoader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,33 +35,33 @@ export function ProductDetailPage() {
   const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
   const [checkoutStep, setCheckoutStep] = useState<"confirm" | "success">("confirm");
 
-  useEffect(() => {
+  const fetchProduct = async () => {
     if (!slug) return;
-    const fetchProduct = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await productsApi.getProductBySlug(slug);
-        setProduct(data);
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await productsApi.getProductBySlug(slug);
+      setProduct(data);
 
-        if (data.variants && data.variants.length > 0) {
-          const firstVariant = data.variants[0]!;
-          setSelectedVariant(firstVariant);
+      if (data.variants && data.variants.length > 0) {
+        const firstVariant = data.variants[0]!;
+        setSelectedVariant(firstVariant);
 
-          if (firstVariant.emiPlans && firstVariant.emiPlans.length > 0) {
-            const defaultPlan =
-              firstVariant.emiPlans.find((p) => p.tenureMonths === 12) ||
-              firstVariant.emiPlans[0]!;
-            setSelectedPlan(defaultPlan);
-          }
+        if (firstVariant.emiPlans && firstVariant.emiPlans.length > 0) {
+          const defaultPlan =
+            firstVariant.emiPlans.find((p) => p.tenureMonths === 12) ||
+            firstVariant.emiPlans[0]!;
+          setSelectedPlan(defaultPlan);
         }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Product not found");
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Product not found");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchProduct();
   }, [slug]);
 
@@ -87,6 +88,11 @@ export function ProductDetailPage() {
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <ServerWakeupLoader
+          isLoading={loading}
+          title="Connecting to FundPay Backend"
+          itemType="device specifications"
+        />
         <Skeleton className="h-6 w-48 mb-8 rounded-full bg-[#F8F4FF]" />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-6 space-y-4">
@@ -106,6 +112,13 @@ export function ProductDetailPage() {
   if (error || !product || !selectedVariant) {
     return (
       <div className="max-w-md mx-auto px-4 py-28 text-center space-y-4">
+        <ServerWakeupLoader
+          isLoading={false}
+          error={error}
+          onRetry={fetchProduct}
+          title="Connecting to FundPay Backend"
+          itemType="device specifications"
+        />
         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EFDAFF] text-[#6D28D9] mx-auto">
           <Info className="h-7 w-7" />
         </div>

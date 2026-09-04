@@ -9,8 +9,8 @@ import { FaqSection } from "@/components/common/FaqSection";
 import { productsApi } from "@/api";
 import type { Product } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AlertCircle, RefreshCw, ArrowUpRight, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ServerWakeupLoader } from "@/components/common/ServerWakeupLoader";
+import { Sparkles, ArrowUpRight } from "lucide-react";
 
 export function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -61,6 +61,14 @@ export function HomePage() {
           </div>
         </div>
 
+        <ServerWakeupLoader
+          isLoading={loading}
+          error={error}
+          onRetry={fetchProducts}
+          title="Connecting to FundPay Backend"
+          itemType="smartphones"
+        />
+
         {loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3].map((n) => (
@@ -75,21 +83,6 @@ export function HomePage() {
                 </div>
               </div>
             ))}
-          </div>
-        )}
-
-        {!loading && error && (
-          <div className="rounded-[28px] border border-red-200 bg-red-50/60 p-8 text-center max-w-md mx-auto space-y-4">
-            <AlertCircle className="h-10 w-10 text-[#DC2626] mx-auto" />
-            <h3 className="text-xl font-bold text-[#050505]">Failed to Load Products</h3>
-            <p className="text-xs text-[#444444]">{error}</p>
-            <Button
-              onClick={fetchProducts}
-              className="bg-[#6D28D9] hover:bg-[#5420C9] text-white text-xs font-semibold rounded-[16px] h-10 px-5"
-            >
-              <RefreshCw className="h-3.5 w-3.5 mr-2" />
-              Retry Connection
-            </Button>
           </div>
         )}
 
