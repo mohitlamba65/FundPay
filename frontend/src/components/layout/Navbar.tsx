@@ -1,30 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { TrendingUp, Menu, X, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { healthApi, type HealthCheckResponse } from "@/api";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [eligibilityModalOpen, setEligibilityModalOpen] = useState(false);
   const [kycStep, setKycStep] = useState<"phone" | "pan" | "success">("phone");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [healthStatus, setHealthStatus] = useState<HealthCheckResponse | null>(null);
   const location = useLocation();
-
-  useEffect(() => {
-    healthApi
-      .checkHealth()
-      .then((res) => setHealthStatus(res))
-      .catch(() =>
-        setHealthStatus({
-          status: "error",
-          timestamp: new Date().toISOString(),
-          database: "disconnected",
-        })
-      );
-  }, []);
 
   const navLinks = [
     { label: "Phones", href: "/#products" },
